@@ -12,11 +12,13 @@
 @interface CTCalculableTextVC ()
 @property (weak, nonatomic) IBOutlet UITextView *panel;
 @property (weak, nonatomic) IBOutlet UILabel *result;
-@property (strong,nonatomic) NSString *billContentID;
+@property (strong,nonatomic) NSString *billDictionaryID;
 @end
 
 @implementation CTCalculableTextVC
 
+
+#pragma marks - viewController lifecycle -
 
 - (void)viewDidLoad
 {
@@ -29,8 +31,11 @@
                                                  name:UIKeyboardWillHideNotification object:self.view.window];
     
     NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
-    NSString *text = [sd objectForKey:self.billContentID];
-    if (text != nil) {
+    NSDictionary *composed = [sd dictionaryForKey: self.billDictionaryID];
+    if (composed != nil) {
+        NSString *text = [composed objectForKey:BILL_DICCONTENT];
+        NSString *title = [composed objectForKey:BILL_DICTITLE];
+        self.title= title;
         self.panel.text = text;
         [self analyzeContent:text];
     }
@@ -38,42 +43,72 @@
 
 -(void) viewWillDisappear:(BOOL)animated {
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
-        // back button was pressed.  We know this is true because self is no longer
-        // in the navigation stack.
-        //read text
-        NSString *text = self.panel.text;
         //save text
-        NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
-        [sd setObject:text forKey:self.billContentID];
-        [sd synchronize];
+        [self saveContent];
     }
     [super viewWillDisappear:animated];
 }
 
+#pragma marks - Lazy instantiations -
+
 -(void)setBillID:(NSString *)billID{
     _billID = billID;
-    _billContentID = [BILL_DICCONTENT stringByAppendingString:billID];
+    _billDictionaryID = [BILL_DICCONTENT stringByAppendingString:billID];
 }
+
+#pragma marks - IBActions -
 
 - (IBAction)calculate:(UIBarButtonItem *)sender {
     
-    //read text
-    NSString *text = self.panel.text;
     //save text
-    NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
-    [sd setObject:text forKey:self.billContentID];
-    [sd synchronize];
+    [self saveContent];
 
     //hide keyboard
     [self.panel resignFirstResponder];
     
     //show result
-    [self analyzeContent:text];
+    [self analyzeContent:self.panel.text];
+}
+
+#pragma marks - text interpretations -
+
+- (void)saveContent{
+    //sum
+    float sum = 0;
+    
+    //read text
+    NSString *text = self.panel.text;
+    
+    //shrink and split component
+    text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSArray *items = [text componentsSeparatedByString:@"\n"];
+    
+    //read title
+    NSString *title = [items objectAtIndex:0];
+    
+    for(NSString *item in items){
+        NSString *cp = item;
+        cp = [cp stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSArray *splitted = [cp componentsSeparatedByString:@" "];
+        float val =[[splitted objectAtIndex:0] floatValue];
+        sum += val;
+    }
+    
+    NSString *sumStr = [[NSString alloc] initWithFormat:@"%.02f" , sum];
+    
+    //create stuff
+    NSDictionary *bill = @{BILL_DICTITLE: title, BILL_DICCONTENT: text, BILL_DICSUM: sumStr};
+    
+    NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
+    [sd setObject:bill forKey:self.billDictionaryID];
+    [sd synchronize];
 }
 
 - (void)analyzeContent:(NSString *)text{
     
     float res = 0;
+    NSAttributedString *resStr;
+    NSString *tmpStr;
     
     text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSArray *items = [text componentsSeparatedByString:@"\n"];
@@ -86,9 +121,23 @@
         res += val;
     }
     
-    self.result.text = [[NSString alloc] initWithFormat:@"%.02f Euro" , res];
+    NSDictionary *attrb = @{ NSForegroundColorAttributeName :[UIColor greenColor]};
+    NSDictionary *attre = @{ NSForegroundColorAttributeName :[UIColor redColor]};
+    
+    
+    if (res < 0) {
+        res = -res;
+        tmpStr = [[NSString alloc] initWithFormat:@"Balance: %.02f Euro" , res];
+        resStr = [[NSAttributedString alloc] initWithString:tmpStr attributes:attrb];
+    }else{
+        tmpStr = [[NSString alloc] initWithFormat:@"Expense: %.02f Euro" , res];
+        resStr = [[NSAttributedString alloc] initWithString:tmpStr attributes:attre];
+    
+    }
+    self.result.attributedText = resStr;
 }
 
+#pragma marks - adjust textfield frame when keyboard appears -
 
 - (void)keyboardWillShow:(NSNotification *)notif
 {

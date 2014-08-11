@@ -12,4 +12,5 @@
 #define BILL_DICID @"thedictionarykeyforbillid"
 #define BILL_DICCONTENT @"thedictionarykeyforbillcontent"
 #define BILL_DICSUM @"thedictionarykeyforbillsum"
+#define BILL_DICTITLE @"thedictionarykeyforbilltitle"
 @end

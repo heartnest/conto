@@ -22,18 +22,21 @@ static NSString *segueCellID = @"detail";
 static NSString *dbID = @"billsUserDefaultID";
 
 
+#pragma marks - viewcontroller lifeCycle -
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.bills = [[[NSUserDefaults standardUserDefaults] objectForKey: dbID] mutableCopy];
-    
-//    NSString *cn = [[NSUserDefaults standardUserDefaults] objectForKey:@"thedictionarykeyforbillcontent1407717343.501618"];
-//    
-//    NSLog(@"%@",cn);
-    
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
+#pragma marks - lazy instantiations -
 
 -(NSMutableArray *) bills{
     if (_bills == nil) {
@@ -58,6 +61,7 @@ static NSString *dbID = @"billsUserDefaultID";
     
     unsigned inversedIdx = (unsigned)(self.bills.count -indexPath.row - 1);
     
+    //date interpretation
     NSString * timeStampString =[self.bills objectAtIndex:inversedIdx];
     NSTimeInterval _interval=[timeStampString doubleValue];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:_interval];
@@ -65,12 +69,18 @@ static NSString *dbID = @"billsUserDefaultID";
     [_formatter setDateFormat:@"dd/MM/yyyy HH:mm"];
     NSString *_date=[_formatter stringFromDate:date];
     
+    //title build
+    NSString *title = @"default";
+    NSString *billDictionaryID = [BILL_DICCONTENT stringByAppendingString:timeStampString];
+    NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
+    NSDictionary *composed = [sd dictionaryForKey: billDictionaryID];
+    if (composed != nil) {
+        title = [composed objectForKey:BILL_DICTITLE];
+    }
     
-    cell.textLabel.text = _date;
-    
-    
-    //NSLog(@"%@",[BILL_DICCONTENT stringByAppendingString:timeStampString]);
-    
+    cell.textLabel.text = title;
+    cell.detailTextLabel.text = _date;
+
     return cell;
 }
 
@@ -79,7 +89,6 @@ static NSString *dbID = @"billsUserDefaultID";
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
 
@@ -108,10 +117,7 @@ static NSString *dbID = @"billsUserDefaultID";
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    
-    
+
     NSIndexPath *indexPath = nil;
     
     
@@ -142,8 +148,6 @@ static NSString *dbID = @"billsUserDefaultID";
             [segue.destinationViewController performSelector:@selector(setBillID:) withObject:ts];
         }
     }
-
-
 }
 
 
