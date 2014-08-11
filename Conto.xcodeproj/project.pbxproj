@@ -14,13 +14,14 @@
 		2E40C0E6199644E000D8D2EA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E40C0E5199644E000D8D2EA /* main.m */; };
 		2E40C0EA199644E000D8D2EA /* CTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E40C0E9199644E000D8D2EA /* CTAppDelegate.m */; };
 		2E40C0ED199644E000D8D2EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E40C0EB199644E000D8D2EA /* Main.storyboard */; };
-		2E40C0F0199644E000D8D2EA /* CTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E40C0EF199644E000D8D2EA /* CTViewController.m */; };
 		2E40C0F2199644E000D8D2EA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E40C0F1199644E000D8D2EA /* Images.xcassets */; };
 		2E40C0F9199644E000D8D2EA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E40C0F8199644E000D8D2EA /* XCTest.framework */; };
 		2E40C0FA199644E000D8D2EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E40C0D9199644E000D8D2EA /* Foundation.framework */; };
 		2E40C0FB199644E000D8D2EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E40C0DD199644E000D8D2EA /* UIKit.framework */; };
 		2E40C103199644E000D8D2EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E40C101199644E000D8D2EA /* InfoPlist.strings */; };
 		2E40C105199644E000D8D2EA /* ContoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E40C104199644E000D8D2EA /* ContoTests.m */; };
+		2E8EF2A519980ECD00534D27 /* CTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8EF2A419980ECD00534D27 /* CTTableViewController.m */; };
+		2E8EF2A81998123700534D27 /* CTCalculableTextVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8EF2A71998123700534D27 /* CTCalculableTextVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,14 +46,17 @@
 		2E40C0E8199644E000D8D2EA /* CTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTAppDelegate.h; sourceTree = "<group>"; };
 		2E40C0E9199644E000D8D2EA /* CTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTAppDelegate.m; sourceTree = "<group>"; };
 		2E40C0EC199644E000D8D2EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2E40C0EE199644E000D8D2EA /* CTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTViewController.h; sourceTree = "<group>"; };
-		2E40C0EF199644E000D8D2EA /* CTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTViewController.m; sourceTree = "<group>"; };
 		2E40C0F1199644E000D8D2EA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2E40C0F7199644E000D8D2EA /* ContoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E40C0F8199644E000D8D2EA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		2E40C100199644E000D8D2EA /* ContoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ContoTests-Info.plist"; sourceTree = "<group>"; };
 		2E40C102199644E000D8D2EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2E40C104199644E000D8D2EA /* ContoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContoTests.m; sourceTree = "<group>"; };
+		2E8EF2A319980ECD00534D27 /* CTTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTTableViewController.h; sourceTree = "<group>"; };
+		2E8EF2A419980ECD00534D27 /* CTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTTableViewController.m; sourceTree = "<group>"; };
+		2E8EF2A61998123700534D27 /* CTCalculableTextVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTCalculableTextVC.h; sourceTree = "<group>"; };
+		2E8EF2A71998123700534D27 /* CTCalculableTextVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTCalculableTextVC.m; sourceTree = "<group>"; };
+		2E8EF2A9199843CA00534D27 /* CTContants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTContants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,8 +119,11 @@
 				2E40C0E8199644E000D8D2EA /* CTAppDelegate.h */,
 				2E40C0E9199644E000D8D2EA /* CTAppDelegate.m */,
 				2E40C0EB199644E000D8D2EA /* Main.storyboard */,
-				2E40C0EE199644E000D8D2EA /* CTViewController.h */,
-				2E40C0EF199644E000D8D2EA /* CTViewController.m */,
+				2E8EF2A319980ECD00534D27 /* CTTableViewController.h */,
+				2E8EF2A419980ECD00534D27 /* CTTableViewController.m */,
+				2E8EF2A61998123700534D27 /* CTCalculableTextVC.h */,
+				2E8EF2A71998123700534D27 /* CTCalculableTextVC.m */,
+				2E8EF2A9199843CA00534D27 /* CTContants.h */,
 				2E40C0F1199644E000D8D2EA /* Images.xcassets */,
 				2E40C0E0199644E000D8D2EA /* Supporting Files */,
 			);
@@ -250,9 +257,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E8EF2A519980ECD00534D27 /* CTTableViewController.m in Sources */,
 				2E40C0E6199644E000D8D2EA /* main.m in Sources */,
 				2E40C0EA199644E000D8D2EA /* CTAppDelegate.m in Sources */,
-				2E40C0F0199644E000D8D2EA /* CTViewController.m in Sources */,
+				2E8EF2A81998123700534D27 /* CTCalculableTextVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +465,7 @@
 				2E40C10A199644E000D8D2EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2E40C10B199644E000D8D2EA /* Build configuration list for PBXNativeTarget "ContoTests" */ = {
 			isa = XCConfigurationList;
@@ -465,6 +474,7 @@
 				2E40C10D199644E000D8D2EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
