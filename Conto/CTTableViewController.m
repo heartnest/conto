@@ -22,18 +22,38 @@ static NSString *segueCellID = @"detail";
 static NSString *dbID = @"billsUserDefaultID";
 
 
+
 #pragma marks - viewcontroller lifeCycle -
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.bills = [[[NSUserDefaults standardUserDefaults] objectForKey: dbID] mutableCopy];
+    // load data from iClould and save em in Userlocal
+    NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
+//    NSData *data = [iCloud objectForKey:dbID];
+    NSMutableArray *data_array = (NSMutableArray*)[iCloud objectForKey:dbID];
+
+//
+//    NSDictionary *myDictionary = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:data];
+//    NSMutableArray *data_array = (NSMutableArray*)[NSKeyedUnarchiver unarchiveObjectWithData:data];
+//
+//    NSLog(@"data_array %@",data_array);
+    
+//    self.bills = [myDictionary mutableCopy];
+    
+//    NSMutableArray *tarr = [[[NSUserDefaults standardUserDefaults] objectForKey: dbID] mutableCopy];
+//    NSLog(@"data_array %@",tarr);
+//    self.bills = [[[NSUserDefaults standardUserDefaults] objectForKey: dbID] mutableCopy];
+    self.bills = [data_array mutableCopy];
+//    self.bills = [[[NSUserDefaults standardUserDefaults] objectForKey: dbID] mutableCopy];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+    
+    self.tableView.frame = self.view.frame;
 }
 
 #pragma marks - lazy instantiations -
@@ -72,8 +92,16 @@ static NSString *dbID = @"billsUserDefaultID";
     //title build
     NSString *title = @"default";
     NSString *billDictionaryID = [BILL_DICCONTENT stringByAppendingString:timeStampString];
-    NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
-    NSDictionary *composed = [sd dictionaryForKey: billDictionaryID];
+    
+//    NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
+//    NSDictionary *composed = [sd dictionaryForKey: billDictionaryID];
+//    
+    NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
+//    NSData *data = [iCloud objectForKey:billDictionaryID];
+//    NSDictionary *composed = (NSDictionary*)[NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSDictionary *composed = (NSDictionary*)[iCloud objectForKey:billDictionaryID];
+    
+    
     if (composed != nil) {
         title = [composed objectForKey:BILL_DICTITLE];
     }
@@ -94,18 +122,23 @@ static NSString *dbID = @"billsUserDefaultID";
 
 
 
-// Override to support editing the table view.
+// Override to support editing the table view. DELETE
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger cellnum = (long)indexPath.row;
     NSString *ts = [self.bills objectAtIndex:[self.bills count]-1-cellnum];
     [self.bills removeObjectAtIndex:[self.bills count]-1-cellnum];
    
-    NSUserDefaults *ud = [[NSUserDefaults alloc]init];
-    [ud setObject:self.bills forKey:dbID];
-    [ud removeObjectForKey:[BILL_DICCONTENT stringByAppendingString:ts]];
-    [ud synchronize];
-    
+//    NSUserDefaults *ud = [[NSUserDefaults alloc]init];
+//    [ud setObject:self.bills forKey:dbID];
+//    [ud removeObjectForKey:[BILL_DICCONTENT stringByAppendingString:ts]];
+//    [ud synchronize];
+//    
+ 
+    NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
+    [iCloud setObject:self.bills forKey:dbID];
+    [iCloud removeObjectForKey:[BILL_DICCONTENT stringByAppendingString:ts]];
+    [iCloud synchronize];
 
     [self.tableView reloadData];
 }
@@ -130,10 +163,16 @@ static NSString *dbID = @"billsUserDefaultID";
         
         [self.bills addObject:timestamp];
         
-        NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
-        [sd setObject:[self.bills copy] forKey:dbID];
-        [sd synchronize];
+        
+//        NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
+//        [sd setObject:[self.bills copy] forKey:dbID];
+//        [sd synchronize];
+        
+        NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
+        [iCloud setObject:[self.bills copy] forKey:dbID];
+        [iCloud synchronize];
 
+        
         [self.tableView reloadData];
         
         if ([segue.destinationViewController respondsToSelector:@selector(setBillID:)]) {

@@ -30,8 +30,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:self.view.window];
     
-    NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
-    NSDictionary *composed = [sd dictionaryForKey: self.billDictionaryID];
+    NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
+    NSDictionary *composed = [iCloud dictionaryForKey: self.billDictionaryID];
+//    NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
+//    NSDictionary *composed = [sd dictionaryForKey: self.billDictionaryID];
     if (composed != nil) {
         NSString *text = [composed objectForKey:BILL_DICCONTENT];
         NSString *title = [composed objectForKey:BILL_DICTITLE];
@@ -99,9 +101,24 @@
     //create stuff
     NSDictionary *bill = @{BILL_DICTITLE: title, BILL_DICCONTENT: text, BILL_DICSUM: sumStr};
     
-    NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
-    [sd setObject:bill forKey:self.billDictionaryID];
-    [sd synchronize];
+//    NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
+//    [sd setObject:bill forKey:self.billDictionaryID];
+//    [sd synchronize];
+    NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
+    [iCloud setObject:bill forKey:self.billDictionaryID];
+    [iCloud synchronize];
+    
+    
+    
+//    NSData *dicdata = [NSKeyedArchiver archivedDataWithRootObject:[NSUserDefaults standardUserDefaults]];
+//    //Save Data To NSUserDefault
+//    NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
+//    //let ios know we want to save the data
+//    [iCloud setObject:dicdata forKey:ICLOUD_DICKEY];
+//    //iOS will save the data when it is ready.
+//    [iCloud synchronize];
+    
+
 }
 
 - (void)analyzeContent:(NSString *)text{
@@ -141,13 +158,25 @@
 
 - (void)keyboardWillShow:(NSNotification *)notif
 {
-    [self.panel setFrame:CGRectMake(10, 20, 295, 237)]; //Or where ever you want the view to go
+    NSValue *keyboardRectAsObject =
+    [[notif userInfo]
+     objectForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    
+    CGRect keyboardRect = CGRectZero;
+    [keyboardRectAsObject getValue:&keyboardRect];
+    
+    
+    self.panel.contentInset =
+    UIEdgeInsetsMake(0.0f,
+                     0.0f,
+                     keyboardRect.size.height,
+                     0.0f);
 }
 
 - (void)keyboardWillHide:(NSNotification *)notif
 {
-    [self.panel setFrame:CGRectMake(10, 20, 295, 410)]; //return it to its original position
-    
+    self.panel.contentInset = UIEdgeInsetsZero;
 }
 
 @end

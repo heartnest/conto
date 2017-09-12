@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C51AAEC7-FB9D-426C-B9B7-2B1424005F4D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Conto</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>EFE8359DFF80493071BC8B55675E646CF65AEA0D</key>
+		<string>http://github.com/heartnest/conto</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Conto.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>EFE8359DFF80493071BC8B55675E646CF65AEA0D</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://github.com/heartnest/conto</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>EFE8359DFF80493071BC8B55675E646CF65AEA0D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EFE8359DFF80493071BC8B55675E646CF65AEA0D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Conto</string>
+		</dict>
+	</array>
+</dict>
+</plist>
