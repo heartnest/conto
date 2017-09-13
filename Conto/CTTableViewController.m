@@ -9,8 +9,11 @@
 #import "CTTableViewController.h"
 #import "CTContants.h"
 #import "CTCalculableTextVC.h"
+#import <StoreKit/StoreKit.h>
 
-@interface CTTableViewController ()
+#define kRemoveAdsProductIdentifier @"harnestlabjishu"
+
+@interface CTTableViewController ()<SKProductsRequestDelegate, SKPaymentTransactionObserver>
 @property (strong,nonatomic) NSMutableArray *bills;
 @end
 
@@ -23,6 +26,62 @@ static NSString *dbID = @"billsUserDefaultID";
 
 
 
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
+    SKProduct *validProduct = nil;
+    int count =(int)[response.products count];
+    if(count > 0){
+        validProduct = [response.products objectAtIndex:0];
+        NSLog(@"Products Available!");
+//        [self purchase:validProduct];
+    }
+    
+    if(!validProduct){
+        NSLog(@"No products available");
+        //this is called if your product id is not valid, this shouldn't be called unless that happens.
+    }
+}
+
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
+    for(SKPaymentTransaction *transaction in transactions){
+        //if you have multiple in app purchases in your app,
+        //you can get the product identifier of this transaction
+        //by using transaction.payment.productIdentifier
+        //
+        //then, check the identifier against the product IDs
+        //that you have defined to check which product the user
+        //just purchased
+        
+        switch(transaction.transactionState){
+            case SKPaymentTransactionStatePurchasing: NSLog(@"Transaction state -> Purchasing");
+                //called when the user is in the process of purchasing, do not add any of your own code here.
+                break;
+            case SKPaymentTransactionStatePurchased:
+                //this is called when the user has successfully purchased the package (Cha-Ching!)
+//                [self doRemoveAds];
+                NSLog(@"Just purchased");
+                //you can add your code for what you want to happen when the user buys the purchase here, for this tutorial we use removing ads
+                
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                NSLog(@"Transaction state -> Purchased");
+                break;
+            case SKPaymentTransactionStateRestored:
+                NSLog(@"Transaction state -> Restored");
+                //add the same code as you did from SKPaymentTransactionStatePurchased here
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateFailed:
+                //called when the transaction does not finish
+                if(transaction.error.code == SKErrorPaymentCancelled){
+                    NSLog(@"Transaction state -> Cancelled");
+                    //the user cancelled the payment ;(
+                }
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+            default:
+                ;
+        }
+    }
+}
 #pragma marks - viewcontroller lifeCycle -
 
 - (void)viewDidLoad
@@ -63,6 +122,26 @@ static NSString *dbID = @"billsUserDefaultID";
         _bills = [[NSMutableArray alloc]init];
     }
     return _bills;
+}
+- (IBAction)purchase:(id)sender {
+    NSLog(@"User requests to remove ads");
+    if([SKPaymentQueue canMakePayments]){
+        NSLog(@"User can make payments");
+        
+        //If you have more than one in-app purchase, and would like
+        //to have the user purchase a different product, simply define
+        //another function and replace kRemoveAdsProductIdentifier with
+        //the identifier for the other product
+        
+        SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:kRemoveAdsProductIdentifier]];
+        productsRequest.delegate = self;
+        [productsRequest start];
+        
+    }
+    else{
+        NSLog(@"User cannot make payments due to parental controls");
+        //this is called the user cannot make payments, most likely due to parental controls
+    }
 }
 
 

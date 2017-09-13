@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="3tN-dC-Lpg">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="3tN-dC-Lpg">
                                 <rect key="frame" x="12" y="64" width="363" height="568"/>
                                 <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -31,7 +32,7 @@
                                 <rect key="frame" x="0.0" y="624" width="375" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="O6S-PR-exD"/>
-                                    <barButtonItem title="Item" id="X6b-Za-h1i">
+                                    <barButtonItem title="Total" id="X6b-Za-h1i">
                                         <color key="tintColor" red="0.054901960780000002" green="0.1764705882" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
                                     </barButtonItem>
                                 </items>
@@ -62,33 +63,50 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="999.5" y="82.5"/>
+            <point key="canvasLocation" x="1667" y="948"/>
         </scene>
         <!--Conto-->
         <scene sceneID="ZSf-ek-0h3">
             <objects>
                 <tableViewController id="fVS-fd-xZc" customClass="CTTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3ZC-01-Ank">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="52" sectionHeaderHeight="22" sectionFooterHeight="22" id="3ZC-01-Ank">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="6A9-ag-LPa">
+                            <rect key="frame" x="0.0" y="74" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <items>
+                                <barButtonItem title="Info" id="6h8-ua-3sf">
+                                    <connections>
+                                        <segue destination="A3s-7Z-NLg" kind="push" id="2EK-Xg-Xsm"/>
+                                    </connections>
+                                </barButtonItem>
+                                <barButtonItem style="plain" systemItem="flexibleSpace" id="ORh-U9-ZIT"/>
+                                <barButtonItem title="Enable iCloud Backup" id="c2Z-t2-SqN">
+                                    <connections>
+                                        <action selector="purchase:" destination="fVS-fd-xZc" id="zkb-4l-RsY"/>
+                                    </connections>
+                                </barButtonItem>
+                            </items>
+                        </toolbar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="bill" textLabel="oig-jd-Tfg" detailTextLabel="7Lz-Wu-lzb" style="IBUITableViewCellStyleSubtitle" id="6RS-uQ-DSG">
-                                <rect key="frame" x="0.0" y="22" width="375" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="bill" textLabel="oig-jd-Tfg" detailTextLabel="7Lz-Wu-lzb" rowHeight="52" style="IBUITableViewCellStyleSubtitle" id="6RS-uQ-DSG">
+                                <rect key="frame" x="0.0" y="22" width="375" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6RS-uQ-DSG" id="b1f-vh-reO">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="52"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oig-jd-Tfg">
-                                            <rect key="frame" x="15" y="4" width="35.5" height="21.5"/>
+                                            <rect key="frame" x="15" y="8" width="36" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Lz-Wu-lzb">
-                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                            <rect key="frame" x="15" y="29" width="44" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -107,7 +125,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Conto" id="4nQ-A2-g3z">
-                        <barButtonItem key="leftBarButtonItem" image="reveal-icon.png" id="tIc-1J-BQP"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="gtc-cB-ikl">
                             <connections>
                                 <segue destination="vXZ-lx-hvc" kind="push" identifier="add" id="y8I-VL-Q26"/>
@@ -116,14 +133,64 @@
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UM7-vf-8pg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="a0b-aV-TW7">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <items>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Iqa-7B-pki"/>
+                        <barButtonItem title="Unlock for iCloud Backup" id="9ZW-Qr-NZQ"/>
+                    </items>
+                </toolbar>
             </objects>
-            <point key="canvasLocation" x="573" y="78"/>
+            <point key="canvasLocation" x="788.5" y="792.5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="QsU-DZ-0ZF">
+            <objects>
+                <viewController id="A3s-7Z-NLg" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qyk-Wg-1em"/>
+                        <viewControllerLayoutGuide type="bottom" id="8Ol-9R-VMI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JJm-Hi-Y7m">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="This app allows you to make notes while doing calculation. For more details, plase visit: datalet.net/jishu" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mdD-70-Wv7">
+                                <rect key="frame" x="21" y="84" width="332" height="551"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K4m-N5-eF7">
+                                <rect key="frame" x="-1" y="620" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Hartnest Lab" id="fw3-wX-vCH"/>
+                                </items>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mdD-70-Wv7" firstAttribute="top" secondItem="qyk-Wg-1em" secondAttribute="bottom" constant="20" id="Ban-Ox-9Ko"/>
+                            <constraint firstItem="8Ol-9R-VMI" firstAttribute="top" secondItem="mdD-70-Wv7" secondAttribute="bottom" constant="32" id="Y2W-mR-YHF"/>
+                            <constraint firstItem="mdD-70-Wv7" firstAttribute="centerX" secondItem="JJm-Hi-Y7m" secondAttribute="centerX" id="cMP-9f-evB"/>
+                            <constraint firstItem="mdD-70-Wv7" firstAttribute="leading" secondItem="JJm-Hi-Y7m" secondAttribute="leadingMargin" constant="5" id="sgO-DU-buN"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="DeT-NT-QBN"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Vo-0P-clZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1386.5" y="225.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2MU-wU-rxR">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2s0-Ie-EwS" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="ACr-P8-e9L"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DNM-7e-5jj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -135,18 +202,15 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z1Z-vQ-tQl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="124" y="78"/>
+            <point key="canvasLocation" x="149" y="693"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="reveal-icon.png" width="22" height="17"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Wfa-1A-4fu"/>
+        <segue reference="y8I-VL-Q26"/>
     </inferredMetricsTieBreakers>
 </document>

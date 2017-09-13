@@ -19,6 +19,7 @@
 		2E40C0FB199644E000D8D2EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E40C0DD199644E000D8D2EA /* UIKit.framework */; };
 		2E40C103199644E000D8D2EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E40C101199644E000D8D2EA /* InfoPlist.strings */; };
 		2E40C105199644E000D8D2EA /* ContoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E40C104199644E000D8D2EA /* ContoTests.m */; };
+		2E4C948F1F69773000F58CAB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E4C948E1F69773000F58CAB /* StoreKit.framework */; };
 		2E6C82F91F6916B900612F69 /* bg1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2E6C82F81F6916B900612F69 /* bg1.jpg */; };
 		2E6C82FB1F692E6300612F69 /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6C82FA1F692E6300612F69 /* reveal-icon.png */; };
 		2E8EF2A519980ECD00534D27 /* CTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8EF2A419980ECD00534D27 /* CTTableViewController.m */; };
@@ -55,6 +56,7 @@
 		2E40C100199644E000D8D2EA /* ContoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ContoTests-Info.plist"; sourceTree = "<group>"; };
 		2E40C102199644E000D8D2EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2E40C104199644E000D8D2EA /* ContoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContoTests.m; sourceTree = "<group>"; };
+		2E4C948E1F69773000F58CAB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2E6C82F71F66F6D300612F69 /* Conto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Conto.entitlements; sourceTree = "<group>"; };
 		2E6C82F81F6916B900612F69 /* bg1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg1.jpg; sourceTree = "<group>"; };
 		2E6C82FA1F692E6300612F69 /* reveal-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon.png"; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				2E40C0DC199644E000D8D2EA /* CoreGraphics.framework in Frameworks */,
 				2E40C0DE199644E000D8D2EA /* UIKit.framework in Frameworks */,
 				2E40C0DA199644E000D8D2EA /* Foundation.framework in Frameworks */,
+				2E4C948F1F69773000F58CAB /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +116,7 @@
 		2E40C0D8199644E000D8D2EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2E4C948E1F69773000F58CAB /* StoreKit.framework */,
 				2E40C0D9199644E000D8D2EA /* Foundation.framework */,
 				2E40C0DB199644E000D8D2EA /* CoreGraphics.framework */,
 				2E40C0DD199644E000D8D2EA /* UIKit.framework */,
@@ -232,6 +236,9 @@
 						DevelopmentTeam = ZPZ4WTYC4B;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
 								enabled = 1;
 							};

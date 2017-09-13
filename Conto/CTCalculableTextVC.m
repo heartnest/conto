@@ -25,6 +25,10 @@
 {
     [super viewDidLoad];
     
+//    self.panel.edgesForExtendedLayout = UIRectEdgeNone;
+//    self.panel.textContainer.lineFragmentPadding = 0;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.panel.textContainerInset = 0;
 //    self.panel.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification object:self.view.window];
