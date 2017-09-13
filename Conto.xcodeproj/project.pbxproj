@@ -15,11 +15,12 @@
 		2E40C0EA199644E000D8D2EA /* CTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E40C0E9199644E000D8D2EA /* CTAppDelegate.m */; };
 		2E40C0ED199644E000D8D2EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E40C0EB199644E000D8D2EA /* Main.storyboard */; };
 		2E40C0F2199644E000D8D2EA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E40C0F1199644E000D8D2EA /* Images.xcassets */; };
-		2E40C0F9199644E000D8D2EA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E40C0F8199644E000D8D2EA /* XCTest.framework */; };
 		2E40C0FA199644E000D8D2EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E40C0D9199644E000D8D2EA /* Foundation.framework */; };
 		2E40C0FB199644E000D8D2EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E40C0DD199644E000D8D2EA /* UIKit.framework */; };
 		2E40C103199644E000D8D2EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E40C101199644E000D8D2EA /* InfoPlist.strings */; };
 		2E40C105199644E000D8D2EA /* ContoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E40C104199644E000D8D2EA /* ContoTests.m */; };
+		2E6C82F91F6916B900612F69 /* bg1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2E6C82F81F6916B900612F69 /* bg1.jpg */; };
+		2E6C82FB1F692E6300612F69 /* reveal-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E6C82FA1F692E6300612F69 /* reveal-icon.png */; };
 		2E8EF2A519980ECD00534D27 /* CTTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8EF2A419980ECD00534D27 /* CTTableViewController.m */; };
 		2E8EF2A81998123700534D27 /* CTCalculableTextVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E8EF2A71998123700534D27 /* CTCalculableTextVC.m */; };
 		2E8EF2AE1998C64E00534D27 /* 120.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E8EF2AB1998C64E00534D27 /* 120.png */; };
@@ -51,10 +52,12 @@
 		2E40C0EC199644E000D8D2EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2E40C0F1199644E000D8D2EA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2E40C0F7199644E000D8D2EA /* ContoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2E40C0F8199644E000D8D2EA /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		2E40C100199644E000D8D2EA /* ContoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ContoTests-Info.plist"; sourceTree = "<group>"; };
 		2E40C102199644E000D8D2EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2E40C104199644E000D8D2EA /* ContoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContoTests.m; sourceTree = "<group>"; };
+		2E6C82F71F66F6D300612F69 /* Conto.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Conto.entitlements; sourceTree = "<group>"; };
+		2E6C82F81F6916B900612F69 /* bg1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg1.jpg; sourceTree = "<group>"; };
+		2E6C82FA1F692E6300612F69 /* reveal-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reveal-icon.png"; sourceTree = "<group>"; };
 		2E8EF2A319980ECD00534D27 /* CTTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTTableViewController.h; sourceTree = "<group>"; };
 		2E8EF2A419980ECD00534D27 /* CTTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTTableViewController.m; sourceTree = "<group>"; };
 		2E8EF2A61998123700534D27 /* CTCalculableTextVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTCalculableTextVC.h; sourceTree = "<group>"; };
@@ -80,7 +83,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E40C0F9199644E000D8D2EA /* XCTest.framework in Frameworks */,
 				2E40C0FB199644E000D8D2EA /* UIKit.framework in Frameworks */,
 				2E40C0FA199644E000D8D2EA /* Foundation.framework in Frameworks */,
 			);
@@ -114,7 +116,6 @@
 				2E40C0D9199644E000D8D2EA /* Foundation.framework */,
 				2E40C0DB199644E000D8D2EA /* CoreGraphics.framework */,
 				2E40C0DD199644E000D8D2EA /* UIKit.framework */,
-				2E40C0F8199644E000D8D2EA /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -122,6 +123,7 @@
 		2E40C0DF199644E000D8D2EA /* Conto */ = {
 			isa = PBXGroup;
 			children = (
+				2E6C82F71F66F6D300612F69 /* Conto.entitlements */,
 				2E40C0E8199644E000D8D2EA /* CTAppDelegate.h */,
 				2E40C0E9199644E000D8D2EA /* CTAppDelegate.m */,
 				2E40C0EB199644E000D8D2EA /* Main.storyboard */,
@@ -169,6 +171,8 @@
 		2E8EF2AA1998C64E00534D27 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				2E6C82FA1F692E6300612F69 /* reveal-icon.png */,
+				2E6C82F81F6916B900612F69 /* bg1.jpg */,
 				2E8EF2AB1998C64E00534D27 /* 120.png */,
 				2E8EF2AC1998C64E00534D27 /* 58.png */,
 				2E8EF2AD1998C64E00534D27 /* 80.png */,
@@ -221,9 +225,18 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = CT;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = asscubo;
 				TargetAttributes = {
+					2E40C0D5199644E000D8D2EA = {
+						DevelopmentTeam = ZPZ4WTYC4B;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
 					2E40C0F6199644E000D8D2EA = {
 						TestTargetID = 2E40C0D5199644E000D8D2EA;
 					};
@@ -257,8 +270,10 @@
 				2E40C0F2199644E000D8D2EA /* Images.xcassets in Resources */,
 				2E8EF2AE1998C64E00534D27 /* 120.png in Resources */,
 				2E8EF2B01998C64E00534D27 /* 80.png in Resources */,
+				2E6C82F91F6916B900612F69 /* bg1.jpg in Resources */,
 				2E40C0E4199644E000D8D2EA /* InfoPlist.strings in Resources */,
 				2E40C0ED199644E000D8D2EA /* Main.storyboard in Resources */,
+				2E6C82FB1F692E6300612F69 /* reveal-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,13 +358,20 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -362,7 +384,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -381,20 +403,26 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -403,14 +431,20 @@
 		2E40C109199644E000D8D2EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-all";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-all";
+				CODE_SIGN_ENTITLEMENTS = Conto/Conto.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = ZPZ4WTYC4B;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Conto/Conto-Prefix.pch";
 				INFOPLIST_FILE = "Conto/Conto-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = hartnestlab.meth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5D12A077-7FB1-4FA8-8DB5-4F51CE2F11B3";
+				PROVISIONING_PROFILE = "d8062de7-a9e4-4cbf-a146-b7b7caa360fb";
+				PROVISIONING_PROFILE_SPECIFIER = Meth.dev;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -418,14 +452,20 @@
 		2E40C10A199644E000D8D2EA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-all";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-all";
+				CODE_SIGN_ENTITLEMENTS = Conto/Conto.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = ZPZ4WTYC4B;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Conto/Conto-Prefix.pch";
 				INFOPLIST_FILE = "Conto/Conto-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = hartnestlab.meth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5D12A077-7FB1-4FA8-8DB5-4F51CE2F11B3";
+				PROVISIONING_PROFILE = "d8062de7-a9e4-4cbf-a146-b7b7caa360fb";
+				PROVISIONING_PROFILE_SPECIFIER = Meth.dev;
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -446,6 +486,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "ContoTests/ContoTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "asscubo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -464,6 +505,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Conto/Conto-Prefix.pch";
 				INFOPLIST_FILE = "ContoTests/ContoTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "asscubo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

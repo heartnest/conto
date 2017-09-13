@@ -10,29 +10,29 @@
 	<string>Conto</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>E02454C9-95BA-457A-8B7C-CB653D866F85</key>
+		<key>EFE8359DFF80493071BC8B55675E646CF65AEA0D</key>
 		<string>http://github.com/heartnest/conto</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Conto.xcodeproj/project.xcworkspace</string>
+	<string>Conto.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>E02454C9-95BA-457A-8B7C-CB653D866F85</key>
+		<key>EFE8359DFF80493071BC8B55675E646CF65AEA0D</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>http://github.com/heartnest/conto</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>E02454C9-95BA-457A-8B7C-CB653D866F85</string>
+	<string>EFE8359DFF80493071BC8B55675E646CF65AEA0D</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E02454C9-95BA-457A-8B7C-CB653D866F85</string>
+			<string>EFE8359DFF80493071BC8B55675E646CF65AEA0D</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Conto</string>
 		</dict>

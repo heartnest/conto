@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,36 +17,39 @@
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                    <view key="view" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3tN-dC-Lpg">
-                                <rect key="frame" x="10" y="70" width="365" height="543"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="3tN-dC-Lpg">
+                                <rect key="frame" x="12" y="64" width="363" height="568"/>
+                                <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="seB-Nw-gjB">
-                                <rect key="frame" x="6" y="631" width="363" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u4c-sw-tsj">
+                                <rect key="frame" x="0.0" y="624" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="O6S-PR-exD"/>
+                                    <barButtonItem title="Item" id="X6b-Za-h1i">
+                                        <color key="tintColor" red="0.054901960780000002" green="0.1764705882" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.9427942576142132" green="0.9427942576142132" blue="0.9427942576142132" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="seB-Nw-gjB" secondAttribute="trailing" constant="6" id="77R-5a-IgZ"/>
-                            <constraint firstItem="seB-Nw-gjB" firstAttribute="top" secondItem="3tN-dC-Lpg" secondAttribute="bottom" constant="18" id="M5P-kR-5LN"/>
-                            <constraint firstAttribute="bottom" secondItem="seB-Nw-gjB" secondAttribute="bottom" constant="15" id="SKJ-Jt-fsR"/>
-                            <constraint firstItem="seB-Nw-gjB" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="6" id="apV-dk-Wau"/>
-                            <constraint firstItem="3tN-dC-Lpg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-6" id="goW-3F-ZVC"/>
-                            <constraint firstAttribute="trailing" secondItem="3tN-dC-Lpg" secondAttribute="trailing" id="nhb-nw-OZo"/>
-                            <constraint firstItem="3tN-dC-Lpg" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="6" id="sTn-90-AV4"/>
+                            <constraint firstItem="u4c-sw-tsj" firstAttribute="width" secondItem="kh9-bI-dsS" secondAttribute="width" id="6vO-1F-rIC"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="3tN-dC-Lpg" secondAttribute="bottom" constant="35" id="K1I-gc-1e8"/>
+                            <constraint firstItem="3tN-dC-Lpg" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="Pdh-oy-HPc"/>
+                            <constraint firstAttribute="trailing" secondItem="3tN-dC-Lpg" secondAttribute="trailing" id="T5B-Ts-bIW"/>
+                            <constraint firstItem="3tN-dC-Lpg" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" constant="6" id="Tzz-jz-8en"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="u4c-sw-tsj" secondAttribute="bottom" constant="-1" id="XOK-kP-hDM"/>
+                            <constraint firstItem="u4c-sw-tsj" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="nIf-he-Kt7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="FAC-xV-0aA">
-                        <barButtonItem key="rightBarButtonItem" title="Do" id="N7v-re-s9r">
+                        <barButtonItem key="rightBarButtonItem" title="💾" id="N7v-re-s9r">
                             <connections>
                                 <action selector="calculate:" destination="vXZ-lx-hvc" id="VQZ-o1-Dt0"/>
                             </connections>
@@ -55,14 +57,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="panel" destination="3tN-dC-Lpg" id="odR-4e-UmQ"/>
-                        <outlet property="result" destination="seB-Nw-gjB" id="9Gx-oP-5tT"/>
+                        <outlet property="total" destination="X6b-Za-h1i" id="eLy-vU-txa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="999.5" y="82.5"/>
         </scene>
-        <!--CONTI-->
+        <!--Conto-->
         <scene sceneID="ZSf-ek-0h3">
             <objects>
                 <tableViewController id="fVS-fd-xZc" customClass="CTTableViewController" sceneMemberID="viewController">
@@ -104,7 +106,8 @@
                             <outlet property="delegate" destination="fVS-fd-xZc" id="E63-3L-P8I"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="CONTI" id="4nQ-A2-g3z">
+                    <navigationItem key="navigationItem" title="Conto" id="4nQ-A2-g3z">
+                        <barButtonItem key="leftBarButtonItem" image="reveal-icon.png" id="tIc-1J-BQP"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="gtc-cB-ikl">
                             <connections>
                                 <segue destination="vXZ-lx-hvc" kind="push" identifier="add" id="y8I-VL-Q26"/>
@@ -135,6 +138,9 @@
             <point key="canvasLocation" x="124" y="78"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="reveal-icon.png" width="22" height="17"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

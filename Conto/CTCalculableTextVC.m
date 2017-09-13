@@ -11,7 +11,8 @@
 
 @interface CTCalculableTextVC ()
 @property (weak, nonatomic) IBOutlet UITextView *panel;
-@property (weak, nonatomic) IBOutlet UILabel *result;
+//@property (weak, nonatomic) IBOutlet UILabel *result;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *total;
 @property (strong,nonatomic) NSString *billDictionaryID;
 @end
 
@@ -24,6 +25,7 @@
 {
     [super viewDidLoad];
     
+//    self.panel.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification object:self.view.window];
     
@@ -41,6 +43,20 @@
         self.panel.text = text;
         [self analyzeContent:text];
     }
+    
+//    
+//    UIImageView *imgView = [[UIImageView alloc]initWithFrame: self.panel.frame];
+//    imgView.image = [UIImage imageNamed: @"bg1.jpg"];
+//    
+//    UIImageView *img = [[UIImageView alloc]initWithFrame: self.panel.frame];
+//    img.image = [UIImage imageNamed: @"bg1.jpg"];
+////    [self.panel addSubview:self.panel];
+////    [self.panel insertSubview:img belowSubview:self.panel];
+//    
+////    self.panel.background = [UIImage imageNamed:@"textFieldImage.png"];
+////    [self.panel addSubview: imgView];
+////    [self.panel sendSubviewToBack: imgView];
+////    [window addSubview: textView];
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
@@ -124,7 +140,7 @@
 - (void)analyzeContent:(NSString *)text{
     
     float res = 0;
-    NSAttributedString *resStr;
+//    NSAttributedString *resStr;
     NSString *tmpStr;
     
     text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -138,20 +154,21 @@
         res += val;
     }
     
-    NSDictionary *attrb = @{ NSForegroundColorAttributeName :[UIColor greenColor]};
-    NSDictionary *attre = @{ NSForegroundColorAttributeName :[UIColor redColor]};
+//    NSDictionary *attrb = @{ NSForegroundColorAttributeName :[UIColor greenColor]};
+//    NSDictionary *attre = @{ NSForegroundColorAttributeName :[UIColor redColor]};
     
     
     if (res < 0) {
         res = -res;
-        tmpStr = [[NSString alloc] initWithFormat:@"Balance: %.02f Euro" , res];
-        resStr = [[NSAttributedString alloc] initWithString:tmpStr attributes:attrb];
+        tmpStr = [[NSString alloc] initWithFormat:@"Total: %.02f" , res];
+//        resStr = [[NSAttributedString alloc] initWithString:tmpStr attributes:attrb];
     }else{
-        tmpStr = [[NSString alloc] initWithFormat:@"Expense: %.02f Euro" , res];
-        resStr = [[NSAttributedString alloc] initWithString:tmpStr attributes:attre];
+        tmpStr = [[NSString alloc] initWithFormat:@"Total: %.02f" , res];
+//        resStr = [[NSAttributedString alloc] initWithString:tmpStr attributes:attre];
     
     }
-    self.result.attributedText = resStr;
+//    self.result.attributedText = resStr;
+    self.total.title = tmpStr;
 }
 
 #pragma marks - adjust textfield frame when keyboard appears -
