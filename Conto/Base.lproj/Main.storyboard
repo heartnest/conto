@@ -31,6 +31,11 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u4c-sw-tsj">
                                 <rect key="frame" x="0.0" y="624" width="375" height="44"/>
                                 <items>
+                                    <barButtonItem systemItem="action" id="F1k-GG-tvR">
+                                        <connections>
+                                            <action selector="shareAction:" destination="vXZ-lx-hvc" id="hmm-bm-Oab"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="O6S-PR-exD"/>
                                     <barButtonItem title="Total" id="X6b-Za-h1i">
                                         <color key="tintColor" red="0.054901960780000002" green="0.1764705882" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -50,7 +55,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="FAC-xV-0aA">
-                        <barButtonItem key="rightBarButtonItem" title="💾" id="N7v-re-s9r">
+                        <barButtonItem key="rightBarButtonItem" title="○" id="N7v-re-s9r">
                             <connections>
                                 <action selector="calculate:" destination="vXZ-lx-hvc" id="VQZ-o1-Dt0"/>
                             </connections>
@@ -58,14 +63,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="panel" destination="3tN-dC-Lpg" id="odR-4e-UmQ"/>
-                        <outlet property="total" destination="X6b-Za-h1i" id="eLy-vU-txa"/>
+                        <outlet property="totalLabel" destination="X6b-Za-h1i" id="h5M-KK-BJz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1667" y="948"/>
         </scene>
-        <!--Conto-->
+        <!--AddNote-->
         <scene sceneID="ZSf-ek-0h3">
             <objects>
                 <tableViewController id="fVS-fd-xZc" customClass="CTTableViewController" sceneMemberID="viewController">
@@ -77,7 +82,7 @@
                             <rect key="frame" x="0.0" y="74" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
-                                <barButtonItem title="Info" id="6h8-ua-3sf">
+                                <barButtonItem title="ⓘ" id="6h8-ua-3sf">
                                     <connections>
                                         <segue destination="A3s-7Z-NLg" kind="push" id="2EK-Xg-Xsm"/>
                                     </connections>
@@ -95,18 +100,18 @@
                                 <rect key="frame" x="0.0" y="22" width="375" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6RS-uQ-DSG" id="b1f-vh-reO">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="52"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="51.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oig-jd-Tfg">
-                                            <rect key="frame" x="15" y="8" width="36" height="21"/>
+                                            <rect key="frame" x="16" y="8" width="35.5" height="21.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Lz-Wu-lzb">
-                                            <rect key="frame" x="15" y="29" width="44" height="15"/>
+                                            <rect key="frame" x="16" y="29.5" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -124,13 +129,16 @@
                             <outlet property="delegate" destination="fVS-fd-xZc" id="E63-3L-P8I"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Conto" id="4nQ-A2-g3z">
+                    <navigationItem key="navigationItem" title="AddNote" id="4nQ-A2-g3z">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="gtc-cB-ikl">
                             <connections>
                                 <segue destination="vXZ-lx-hvc" kind="push" identifier="add" id="y8I-VL-Q26"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="cloudButton" destination="c2Z-t2-SqN" id="qmC-0q-rwg"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UM7-vf-8pg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="a0b-aV-TW7">
@@ -144,7 +152,7 @@
             </objects>
             <point key="canvasLocation" x="788.5" y="792.5"/>
         </scene>
-        <!--View Controller-->
+        <!--ⓘ AddNote-->
         <scene sceneID="QsU-DZ-0ZF">
             <objects>
                 <viewController id="A3s-7Z-NLg" sceneMemberID="viewController">
@@ -156,30 +164,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="This app allows you to make notes while doing calculation. For more details, plase visit: datalet.net/jishu" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mdD-70-Wv7">
-                                <rect key="frame" x="21" y="84" width="332" height="551"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mdD-70-Wv7">
+                                <rect key="frame" x="21" y="14" width="332" height="643"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <string key="text">Why useful ? === Quite often, when we write down notes, we also want to know the addition of the numbers inside our text. Now we can do it in this way (imagine I made the following purchase):  2 suger 3 bread
+--- total: 5  Our magic note will tell, you spent 5$ this morning.  
+What does iCloud Backup do? === In the demo version, data are stored locally, which means that if you change your iPhone, you lose them all. However, with the help of iCloud, your historical data will be easily found as long as you log in.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K4m-N5-eF7">
-                                <rect key="frame" x="-1" y="620" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K4m-N5-eF7">
+                                <rect key="frame" x="1" y="624" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem title="Hartnest Lab" id="fw3-wX-vCH"/>
+                                    <barButtonItem title="ⓒ datalet.net 2017" width="147.5" id="fw3-wX-vCH"/>
                                 </items>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="mdD-70-Wv7" firstAttribute="top" secondItem="qyk-Wg-1em" secondAttribute="bottom" constant="20" id="Ban-Ox-9Ko"/>
-                            <constraint firstItem="8Ol-9R-VMI" firstAttribute="top" secondItem="mdD-70-Wv7" secondAttribute="bottom" constant="32" id="Y2W-mR-YHF"/>
-                            <constraint firstItem="mdD-70-Wv7" firstAttribute="centerX" secondItem="JJm-Hi-Y7m" secondAttribute="centerX" id="cMP-9f-evB"/>
-                            <constraint firstItem="mdD-70-Wv7" firstAttribute="leading" secondItem="JJm-Hi-Y7m" secondAttribute="leadingMargin" constant="5" id="sgO-DU-buN"/>
+                            <constraint firstItem="mdD-70-Wv7" firstAttribute="centerX" secondItem="JJm-Hi-Y7m" secondAttribute="centerX" id="8KB-Bv-lXf"/>
+                            <constraint firstItem="K4m-N5-eF7" firstAttribute="top" secondItem="qyk-Wg-1em" secondAttribute="bottom" constant="560" id="Ju3-l8-nVP"/>
+                            <constraint firstItem="K4m-N5-eF7" firstAttribute="leading" secondItem="JJm-Hi-Y7m" secondAttribute="leadingMargin" constant="-15" id="KWK-QF-yw7"/>
+                            <constraint firstItem="mdD-70-Wv7" firstAttribute="top" secondItem="qyk-Wg-1em" secondAttribute="bottom" constant="-50" id="Lgm-dB-tKg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="K4m-N5-eF7" secondAttribute="trailing" constant="-17" id="cPi-4g-3Dy"/>
+                            <constraint firstItem="8Ol-9R-VMI" firstAttribute="top" secondItem="mdD-70-Wv7" secondAttribute="bottom" constant="10" id="lI6-i6-FS3"/>
+                            <constraint firstItem="mdD-70-Wv7" firstAttribute="leading" secondItem="JJm-Hi-Y7m" secondAttribute="leadingMargin" constant="5" id="xwP-Mh-oyd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="DeT-NT-QBN"/>
+                    <navigationItem key="navigationItem" title="ⓘ AddNote" id="DeT-NT-QBN"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Vo-0P-clZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

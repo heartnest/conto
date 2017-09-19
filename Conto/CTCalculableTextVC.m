@@ -11,13 +11,17 @@
 
 @interface CTCalculableTextVC ()
 @property (weak, nonatomic) IBOutlet UITextView *panel;
-//@property (weak, nonatomic) IBOutlet UILabel *result;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *total;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *totalLabel;
 @property (strong,nonatomic) NSString *billDictionaryID;
+@property (strong,nonatomic) NSString *textSum;
 @end
 
 @implementation CTCalculableTextVC
 
+
+static NSString *noteCont = @"comaddnotefullstore";
+static NSString *hasPaidKey = @"com.icloud.key.hasPaid";
+static bool hasPaid = NO;
 
 #pragma marks - viewController lifecycle -
 
@@ -25,21 +29,30 @@
 {
     [super viewDidLoad];
     
-//    self.panel.edgesForExtendedLayout = UIRectEdgeNone;
-//    self.panel.textContainer.lineFragmentPadding = 0;
+
     self.automaticallyAdjustsScrollViewInsets = NO;
-//    self.panel.textContainerInset = 0;
-//    self.panel.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification object:self.view.window];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:self.view.window];
     
+    
     NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
-    NSDictionary *composed = [iCloud dictionaryForKey: self.billDictionaryID];
-//    NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
-//    NSDictionary *composed = [sd dictionaryForKey: self.billDictionaryID];
+    hasPaid = [iCloud boolForKey:hasPaidKey];
+    NSDictionary *composed,*nsdic;
+    if (hasPaid) {
+        nsdic = [iCloud dictionaryForKey: noteCont];
+//        NSLog(@"working icloud...view 2");
+    }else{
+        NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
+        nsdic = [sd dictionaryForKey: noteCont];
+//        NSLog(@"working local...view 2");
+    }
+    
+    composed = [nsdic objectForKey: self.billDictionaryID];
+
     if (composed != nil) {
         NSString *text = [composed objectForKey:BILL_DICCONTENT];
         NSString *title = [composed objectForKey:BILL_DICTITLE];
@@ -47,20 +60,7 @@
         self.panel.text = text;
         [self analyzeContent:text];
     }
-    
-//    
-//    UIImageView *imgView = [[UIImageView alloc]initWithFrame: self.panel.frame];
-//    imgView.image = [UIImage imageNamed: @"bg1.jpg"];
-//    
-//    UIImageView *img = [[UIImageView alloc]initWithFrame: self.panel.frame];
-//    img.image = [UIImage imageNamed: @"bg1.jpg"];
-////    [self.panel addSubview:self.panel];
-////    [self.panel insertSubview:img belowSubview:self.panel];
-//    
-////    self.panel.background = [UIImage imageNamed:@"textFieldImage.png"];
-////    [self.panel addSubview: imgView];
-////    [self.panel sendSubviewToBack: imgView];
-////    [window addSubview: textView];
+
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
@@ -74,8 +74,7 @@
 #pragma marks - Lazy instantiations -
 
 -(void)setBillID:(NSString *)billID{
-    _billID = billID;
-    _billDictionaryID = [BILL_DICCONTENT stringByAppendingString:billID];
+    _billDictionaryID = billID;
 }
 
 #pragma marks - IBActions -
@@ -91,6 +90,48 @@
     //show result
     [self analyzeContent:self.panel.text];
 }
+- (IBAction)shareAction:(id)sender {
+    NSString *theMessage = self.panel.text;
+    theMessage = [theMessage stringByAppendingString: [@"\n===\n" stringByAppendingString: self.textSum]];
+    NSArray *items = @[theMessage];
+    
+    // build an activity view controller
+    UIActivityViewController *controller = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
+    
+    // and present it
+    [self presentActivityController:controller];
+}
+
+- (void)presentActivityController:(UIActivityViewController *)controller {
+    
+    // for iPad: make the presentation a Popover
+    controller.modalPresentationStyle = UIModalPresentationPopover;
+    [self presentViewController:controller animated:YES completion:nil];
+    
+    UIPopoverPresentationController *popController = [controller popoverPresentationController];
+    popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    popController.barButtonItem = self.navigationItem.leftBarButtonItem;
+    
+    // access the completion handler
+    controller.completionWithItemsHandler = ^(NSString *activityType,
+                                              BOOL completed,
+                                              NSArray *returnedItems,
+                                              NSError *error){
+        // react to the completion
+//        if (completed) {
+//            // user shared an item
+//            NSLog(@"We used activity type%@", activityType);
+//        } else {
+//            // user cancelled
+//            NSLog(@"We didn't want to share anything after all.");
+//        }
+//        
+//        if (error) {
+//            NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
+//        }
+    };
+}
+
 
 #pragma marks - text interpretations -
 
@@ -121,30 +162,35 @@
     //create stuff
     NSDictionary *bill = @{BILL_DICTITLE: title, BILL_DICCONTENT: text, BILL_DICSUM: sumStr};
     
-//    NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
-//    [sd setObject:bill forKey:self.billDictionaryID];
-//    [sd synchronize];
-    NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
-    [iCloud setObject:bill forKey:self.billDictionaryID];
-    [iCloud synchronize];
-    
-    
-    
-//    NSData *dicdata = [NSKeyedArchiver archivedDataWithRootObject:[NSUserDefaults standardUserDefaults]];
-//    //Save Data To NSUserDefault
-//    NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
-//    //let ios know we want to save the data
-//    [iCloud setObject:dicdata forKey:ICLOUD_DICKEY];
-//    //iOS will save the data when it is ready.
-//    [iCloud synchronize];
-    
+
+    if(hasPaid){
+        NSUbiquitousKeyValueStore *store =  [NSUbiquitousKeyValueStore defaultStore];
+        NSMutableDictionary *cnt = [[store objectForKey:noteCont] mutableCopy];
+        if(!cnt){
+            cnt =[[NSMutableDictionary alloc] init];
+        }
+        [cnt setValue:bill forKey:self.billDictionaryID];
+        [store setObject:cnt forKey:noteCont];
+        [store synchronize];
+        
+    }
+    else{
+        NSUserDefaults *store = [NSUserDefaults standardUserDefaults];
+        NSMutableDictionary *cnt = [[NSMutableDictionary alloc] init];
+        cnt = [[store objectForKey:noteCont] mutableCopy];
+        if(!cnt){
+            cnt =[[NSMutableDictionary alloc] init];
+        }
+        [cnt setObject:bill forKey:self.billDictionaryID];
+        [store setObject:cnt forKey:noteCont];
+        [store synchronize];
+    }
 
 }
 
 - (void)analyzeContent:(NSString *)text{
     
     float res = 0;
-//    NSAttributedString *resStr;
     NSString *tmpStr;
     
     text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -158,21 +204,14 @@
         res += val;
     }
     
-//    NSDictionary *attrb = @{ NSForegroundColorAttributeName :[UIColor greenColor]};
-//    NSDictionary *attre = @{ NSForegroundColorAttributeName :[UIColor redColor]};
-    
     
     if (res < 0) {
-        res = -res;
         tmpStr = [[NSString alloc] initWithFormat:@"Total: %.02f" , res];
-//        resStr = [[NSAttributedString alloc] initWithString:tmpStr attributes:attrb];
     }else{
         tmpStr = [[NSString alloc] initWithFormat:@"Total: %.02f" , res];
-//        resStr = [[NSAttributedString alloc] initWithString:tmpStr attributes:attre];
-    
     }
-//    self.result.attributedText = resStr;
-    self.total.title = tmpStr;
+    self.textSum =tmpStr;
+    self.totalLabel.title = tmpStr;
 }
 
 #pragma marks - adjust textfield frame when keyboard appears -

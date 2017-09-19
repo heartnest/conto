@@ -27,6 +27,8 @@
 		2E8EF2AE1998C64E00534D27 /* 120.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E8EF2AB1998C64E00534D27 /* 120.png */; };
 		2E8EF2AF1998C64E00534D27 /* 58.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E8EF2AC1998C64E00534D27 /* 58.png */; };
 		2E8EF2B01998C64E00534D27 /* 80.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E8EF2AD1998C64E00534D27 /* 80.png */; };
+		2ED5C3271F6BE2C400993E94 /* Screen Shot 2017-07-22 at 23.43.35 2-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2ED5C3261F6BE2C400993E94 /* Screen Shot 2017-07-22 at 23.43.35 2-1.png */; };
+		2ED5C3291F6BE2CE00993E94 /* 640x960-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2ED5C3281F6BE2CE00993E94 /* 640x960-1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,8 @@
 		2E8EF2AB1998C64E00534D27 /* 120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 120.png; sourceTree = "<group>"; };
 		2E8EF2AC1998C64E00534D27 /* 58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 58.png; sourceTree = "<group>"; };
 		2E8EF2AD1998C64E00534D27 /* 80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 80.png; sourceTree = "<group>"; };
+		2ED5C3261F6BE2C400993E94 /* Screen Shot 2017-07-22 at 23.43.35 2-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2017-07-22 at 23.43.35 2-1.png"; sourceTree = "<group>"; };
+		2ED5C3281F6BE2CE00993E94 /* 640x960-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "640x960-1.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +184,8 @@
 				2E8EF2AB1998C64E00534D27 /* 120.png */,
 				2E8EF2AC1998C64E00534D27 /* 58.png */,
 				2E8EF2AD1998C64E00534D27 /* 80.png */,
+				2ED5C3281F6BE2CE00993E94 /* 640x960-1.png */,
+				2ED5C3261F6BE2C400993E94 /* Screen Shot 2017-07-22 at 23.43.35 2-1.png */,
 			);
 			path = img;
 			sourceTree = "<group>";
@@ -276,9 +282,11 @@
 				2E8EF2AF1998C64E00534D27 /* 58.png in Resources */,
 				2E40C0F2199644E000D8D2EA /* Images.xcassets in Resources */,
 				2E8EF2AE1998C64E00534D27 /* 120.png in Resources */,
+				2ED5C3291F6BE2CE00993E94 /* 640x960-1.png in Resources */,
 				2E8EF2B01998C64E00534D27 /* 80.png in Resources */,
 				2E6C82F91F6916B900612F69 /* bg1.jpg in Resources */,
 				2E40C0E4199644E000D8D2EA /* InfoPlist.strings in Resources */,
+				2ED5C3271F6BE2C400993E94 /* Screen Shot 2017-07-22 at 23.43.35 2-1.png in Resources */,
 				2E40C0ED199644E000D8D2EA /* Main.storyboard in Resources */,
 				2E6C82FB1F692E6300612F69 /* reveal-icon.png in Resources */,
 			);
@@ -441,16 +449,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-all";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-all";
 				CODE_SIGN_ENTITLEMENTS = Conto/Conto.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = ZPZ4WTYC4B;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Conto/Conto-Prefix.pch";
 				INFOPLIST_FILE = "Conto/Conto-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = hartnestlab.meth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d8062de7-a9e4-4cbf-a146-b7b7caa360fb";
-				PROVISIONING_PROFILE_SPECIFIER = Meth.dev;
+				PROVISIONING_PROFILE = "0b37f486-e0eb-41a8-91f2-61e1f30731ce";
+				PROVISIONING_PROFILE_SPECIFIER = "add-note";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -462,16 +470,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-all";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-all";
 				CODE_SIGN_ENTITLEMENTS = Conto/Conto.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Tong Liu (ZPZ4WTYC4B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tong Liu (ZPZ4WTYC4B)";
 				DEVELOPMENT_TEAM = ZPZ4WTYC4B;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Conto/Conto-Prefix.pch";
 				INFOPLIST_FILE = "Conto/Conto-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = hartnestlab.meth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d8062de7-a9e4-4cbf-a146-b7b7caa360fb";
-				PROVISIONING_PROFILE_SPECIFIER = Meth.dev;
+				PROVISIONING_PROFILE = "0b37f486-e0eb-41a8-91f2-61e1f30731ce";
+				PROVISIONING_PROFILE_SPECIFIER = "add-note";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
