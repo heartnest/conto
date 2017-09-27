@@ -87,10 +87,12 @@
                                         <segue destination="A3s-7Z-NLg" kind="push" id="2EK-Xg-Xsm"/>
                                     </connections>
                                 </barButtonItem>
-                                <barButtonItem style="plain" systemItem="flexibleSpace" id="ORh-U9-ZIT"/>
-                                <barButtonItem title="Enable iCloud Backup" id="c2Z-t2-SqN">
+                                <barButtonItem style="plain" systemItem="flexibleSpace" id="QyJ-8S-1Pw"/>
+                                <barButtonItem title="Not-on-iCloud" id="6G1-np-nPC"/>
+                                <barButtonItem style="plain" systemItem="flexibleSpace" id="xsh-9n-4dx"/>
+                                <barButtonItem title="Donate" id="c2Z-t2-SqN">
                                     <connections>
-                                        <action selector="purchase:" destination="fVS-fd-xZc" id="zkb-4l-RsY"/>
+                                        <action selector="purchaseTapped:" destination="fVS-fd-xZc" id="rhI-A5-YW2"/>
                                     </connections>
                                 </barButtonItem>
                             </items>
@@ -100,18 +102,18 @@
                                 <rect key="frame" x="0.0" y="22" width="375" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6RS-uQ-DSG" id="b1f-vh-reO">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="51.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="51.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oig-jd-Tfg">
-                                            <rect key="frame" x="16" y="8" width="35.5" height="21.5"/>
+                                            <rect key="frame" x="15" y="8" width="35.5" height="21.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Lz-Wu-lzb">
-                                            <rect key="frame" x="16" y="29.5" width="44" height="14.5"/>
+                                            <rect key="frame" x="15" y="29.5" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -138,6 +140,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cloudButton" destination="c2Z-t2-SqN" id="qmC-0q-rwg"/>
+                        <outlet property="onCloudLabel" destination="6G1-np-nPC" id="K0k-Ur-v9N"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UM7-vf-8pg" userLabel="First Responder" sceneMemberID="firstResponder"/>

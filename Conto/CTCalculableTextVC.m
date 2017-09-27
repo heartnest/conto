@@ -20,8 +20,9 @@
 
 
 static NSString *noteCont = @"comaddnotefullstore";
-static NSString *hasPaidKey = @"com.icloud.key.hasPaid";
-static bool hasPaid = NO;
+//static NSString *hasPaidKey = @"com.icloud.key.hasPaid";
+static NSString *isIAPedkey = @"com.iap.arePurchaseMade";
+//static bool isPurchased = NO;
 
 #pragma marks - viewController lifecycle -
 
@@ -40,15 +41,23 @@ static bool hasPaid = NO;
     
     
     NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
-    hasPaid = [iCloud boolForKey:hasPaidKey];
+//    for (NSString *key in iCloud.dictionaryRepresentation.allKeys)
+//    {
+//         NSLog(@"working icloud...view 2,%@",key);
+//    }
+
+//    isPurchased = [iCloud boolForKey:hasPaidKey];
+//    bool isPurchased = [[NSUserDefaults standardUserDefaults] boolForKey:isIAPedkey];
+    
+    bool isPurchased = [[NSUbiquitousKeyValueStore defaultStore] boolForKey:isIAPedkey];
     NSDictionary *composed,*nsdic;
-    if (hasPaid) {
+    if (isPurchased) {
         nsdic = [iCloud dictionaryForKey: noteCont];
-//        NSLog(@"working icloud...view 2");
+        NSLog(@"View did load, icloud mode");
     }else{
         NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
         nsdic = [sd dictionaryForKey: noteCont];
-//        NSLog(@"working local...view 2");
+//      NSLog(@"View did load, local mode");
     }
     
     composed = [nsdic objectForKey: self.billDictionaryID];
@@ -162,8 +171,11 @@ static bool hasPaid = NO;
     //create stuff
     NSDictionary *bill = @{BILL_DICTITLE: title, BILL_DICCONTENT: text, BILL_DICSUM: sumStr};
     
-
-    if(hasPaid){
+    
+//    bool isPurchased = [[NSUserDefaults standardUserDefaults] boolForKey:isIAPedkey];
+    bool isPurchased = [[NSUbiquitousKeyValueStore defaultStore] boolForKey:isIAPedkey];
+    if(isPurchased){
+        NSLog(@"push view save context in cloud");
         NSUbiquitousKeyValueStore *store =  [NSUbiquitousKeyValueStore defaultStore];
         NSMutableDictionary *cnt = [[store objectForKey:noteCont] mutableCopy];
         if(!cnt){
@@ -172,9 +184,10 @@ static bool hasPaid = NO;
         [cnt setValue:bill forKey:self.billDictionaryID];
         [store setObject:cnt forKey:noteCont];
         [store synchronize];
-        
+   
     }
     else{
+        NSLog(@"push view save context in local");
         NSUserDefaults *store = [NSUserDefaults standardUserDefaults];
         NSMutableDictionary *cnt = [[NSMutableDictionary alloc] init];
         cnt = [[store objectForKey:noteCont] mutableCopy];

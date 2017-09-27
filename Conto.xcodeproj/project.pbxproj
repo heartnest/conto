@@ -236,11 +236,11 @@
 			attributes = {
 				CLASSPREFIX = CT;
 				LastUpgradeCheck = 0830;
-				ORGANIZATIONNAME = asscubo;
+				ORGANIZATIONNAME = datalet.net;
 				TargetAttributes = {
 					2E40C0D5199644E000D8D2EA = {
 						DevelopmentTeam = ZPZ4WTYC4B;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 1;
@@ -379,8 +379,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tong Liu (B2UV2638AB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tong Liu (B2UV2638AB)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -401,6 +401,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "2842d9d2-6e44-48db-9769-70b9fd036d73";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -424,8 +425,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tong Liu (B2UV2638AB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Tong Liu (B2UV2638AB)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -438,6 +439,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PROVISIONING_PROFILE = "2842d9d2-6e44-48db-9769-70b9fd036d73";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -450,15 +452,15 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-all";
 				CODE_SIGN_ENTITLEMENTS = Conto/Conto.entitlements;
 				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = ZPZ4WTYC4B;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Conto/Conto-Prefix.pch";
 				INFOPLIST_FILE = "Conto/Conto-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = hartnestlab.meth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0b37f486-e0eb-41a8-91f2-61e1f30731ce";
-				PROVISIONING_PROFILE_SPECIFIER = "add-note";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -471,15 +473,15 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-all";
 				CODE_SIGN_ENTITLEMENTS = Conto/Conto.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Tong Liu (ZPZ4WTYC4B)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tong Liu (ZPZ4WTYC4B)";
-				DEVELOPMENT_TEAM = ZPZ4WTYC4B;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Conto/Conto-Prefix.pch";
 				INFOPLIST_FILE = "Conto/Conto-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = hartnestlab.meth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0b37f486-e0eb-41a8-91f2-61e1f30731ce";
-				PROVISIONING_PROFILE_SPECIFIER = "add-note";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

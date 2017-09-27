@@ -9,13 +9,18 @@
 #import "CTTableViewController.h"
 #import "CTContants.h"
 #import "CTCalculableTextVC.h"
+
 #import <StoreKit/StoreKit.h>
 
-#define kRemoveAdsProductIdentifier @"harnestlabjishu"
+//#define iapProductIdentifierOLD @"harnestlabjishu"
+#define iapProductIdentifier @"harnestlabaddnote"
 
 @interface CTTableViewController ()<SKProductsRequestDelegate, SKPaymentTransactionObserver>
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cloudButton;
 @property (strong,nonatomic) NSMutableDictionary *notes;
+@property (strong, nonatomic) SKProductsRequest *request; //compatibility with old ipad and ios
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *onCloudLabel;
+
 @end
 
 @implementation CTTableViewController
@@ -25,62 +30,122 @@ static NSString *segueCellID = @"detail";
 
 static NSString *noteIdx = @"comaddnotenoteindexes";
 static NSString *noteCont = @"comaddnotefullstore";
-static NSString *hasPaidKey = @"com.icloud.key.hasPaid";
-
-static bool hasPaid = NO;
+//static NSString *hasPaidKey = @"com.icloud.key.hasPaid";
+static NSString *isIAPedkey = @"com.iap.arePurchaseMade";
+//static bool isPurchased = NO;
 
 #pragma marks - viewcontroller lifeCycle -
+NSNumberFormatter * _priceFormatter;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    
-
 //    [[NSNotificationCenter defaultCenter] addObserver:self
 //                                             selector:@selector(updateConents)
 //                                                 name:NSUserDefaultsDidChangeNotification
 //                                               object:nil];
 //
 //
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(updateConents)
-//                                                 name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
-//                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateAll)
+                                                 name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
+                                               object:nil];
+//    [[NSNotificationCenter defaultCenter]
+//     addObserver: self
+//     selector: @selector (resetApplicationAccount)
+//     name: NSUbiquityIdentityDidChangeNotification
+//     object: nil];
+    
     
 //     testing reason
 //     NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
-//     [iCloud setBool:NO forKey:hasPaidKey];
+//     [iCloud setBool:YES forKey:isIAPedkey];
 //     [iCloud synchronize];
     
 //    [self updateConents];
-}
-
-
--(void)updateConents{
-    NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
-    hasPaid = [iCloud boolForKey:hasPaidKey];
-
-    if(hasPaid){
-        self.notes = [[iCloud objectForKey:noteCont] mutableCopy];
-        self.cloudButton.title = @"On Cloud";
-        [self.cloudButton setTintColor:[UIColor blackColor]];
-        self.cloudButton.enabled = NO;
-//        NSLog(@"working in iCloud");
+//    NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
+    
+//    NSLog(@"icloud keys: %@",iCloud.dictionaryRepresentation.allKeys);
+    
+//    for (NSString *key in iCloud.dictionaryRepresentation.allKeys)
+//    {
+//        NSLog(@"working icloud...view 2,%@",key);
+//    }
+    
+//    bool isPurchased = [[NSUserDefaults standardUserDefaults] boolForKey:isIAPedkey];
+    bool isPurchased = [[NSUbiquitousKeyValueStore defaultStore] boolForKey:isIAPedkey];
+    if (!isPurchased) {
+//        [self.spinner startAnimating];
+        NSLog(@"iCloud said no purchase record ...");
+        
+//        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+//        [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
     }else{
-        self.notes = [[[NSUserDefaults standardUserDefaults] objectForKey: noteCont] mutableCopy];
-//        NSLog(@"working in local");
+        
     }
     
-    [self checkContent];
+    [self updateButtons];
+    NSLog(@"finished check");
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self updateConents];
-    [self.tableView reloadData];
+    
     self.tableView.frame = self.view.frame;
 }
+
+
+-(void)updateAll{
+    [self updateButtons];
+    [self updateConents];
+    
+}
+-(void)updateButtons{
+    bool isPurchased = [[NSUbiquitousKeyValueStore defaultStore] boolForKey:isIAPedkey];
+    if(isPurchased){
+        self.onCloudLabel.title = @"On-iCloud";
+        [self.onCloudLabel setTintColor:[UIColor blackColor]];
+        self.onCloudLabel.enabled = NO;
+    }else{
+        self.onCloudLabel.title = @"Not-on-iCloud";
+        [self.onCloudLabel setTintColor:[UIColor blackColor]];
+        self.onCloudLabel.enabled = NO;
+    }
+
+}
+-(void)updateConents{
+    bool isPurchased = [[NSUbiquitousKeyValueStore defaultStore] boolForKey:isIAPedkey];
+    if(isPurchased){
+        NSLog(@"Update content: icloud mode");
+        NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
+        self.notes = [[iCloud objectForKey:noteCont] mutableCopy];
+//        NSLog(@"finised %@",self.notes );
+//        self.cloudButton.title = @"On-Cloud";
+//        [self.cloudButton setTintColor:[UIColor blackColor]];
+//        self.cloudButton.enabled = NO;
+    }else{
+        NSLog(@"Update content: local mode");
+        self.notes = [[[NSUserDefaults standardUserDefaults] objectForKey: noteCont] mutableCopy];
+    }
+    
+    // set examples if not data initialized
+    if([self.notes count] == 0){
+        NSLog(@"Update content: no data");
+        self.notes = [self createExampleDictionary];
+        [self commitNoteData]; // necessary for push page
+    }else{
+        NSLog(@"Update content: data available");
+    }
+    
+    
+    [self.tableView reloadData];
+    
+}
+
 
 #pragma marks - lazy instantiations -
 
@@ -93,29 +158,146 @@ static bool hasPaid = NO;
 
 #pragma marks - IBAction Outlets  -
 
-- (IBAction)purchase:(id)sender {
-//    NSLog(@"User requests to remove ads");
+- (IBAction)purchaseTapped:(id)sender {
+    
     if([SKPaymentQueue canMakePayments]){
-//        NSLog(@"User can make payments");
-        
-        SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:kRemoveAdsProductIdentifier]];
-        productsRequest.delegate = self;
-        [productsRequest start];
-        
+        self.request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:iapProductIdentifier]];
+        self.request.delegate = self;
+        [self.request start];
+
     }
     else{
         NSLog(@"User cannot make payments due to parental controls");
-        //this is called the user cannot make payments, most likely due to parental controls
     }
 }
 
+
+#pragma marks - in-app payment handlers -
+
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
+    SKProduct *validProduct = nil;
+    int count =(int)[response.products count];
+    if(count > 0){
+        validProduct = [response.products objectAtIndex:0];
+        [self purchase:validProduct];
+    }
+    
+    if(!validProduct){
+        NSLog(@"product id is not valid");
+    }
+}
+
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
+    NSLog(@"request - didFailWithError: %@", [[error userInfo] objectForKey:@"NSLocalizedDescription"]);
+}
+
+- (void)purchase:(SKProduct *)product{
+    SKPayment *payment = [SKPayment paymentWithProduct:product];
+    
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    [[SKPaymentQueue defaultQueue] addPayment:payment];
+}
+
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
+    for(SKPaymentTransaction *transaction in transactions){
+        
+        switch(transaction.transactionState){
+            case SKPaymentTransactionStatePurchasing:
+                NSLog(@"Transaction state -> Purchasing");
+                break;
+            case SKPaymentTransactionStatePurchased:
+                NSLog(@"Just purchased");
+                [self commitPurchase];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                NSLog(@"Transaction state -> Purchased");
+                break;
+            case SKPaymentTransactionStateRestored:
+                NSLog(@"Transaction state from paymentQueue -> Restored");
+                //add the same code as you did from SKPaymentTransactionStatePurchased here
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateFailed:
+                //called when the transaction does not finish
+                if(transaction.error.code == SKErrorPaymentCancelled){
+                    NSLog(@"Transaction state -> Cancelled");
+                    //the user cancelled the payment ;(
+                }
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                break;
+            default:
+                
+                ;
+        }
+    }
+
+}
+
+
+//- (void) paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
+//{
+//    NSLog(@"Transaction state from QueueRestoreCompleted Received Restored transactions: %lu", (unsigned long)queue.transactions.count);
+//    for(SKPaymentTransaction *transaction in queue.transactions){
+//        if(transaction.transactionState == SKPaymentTransactionStateRestored){
+//            //called when the user successfully restores a purchase
+//            NSLog(@"Transaction state from QueueRestoreCompleted -> Restored");
+//            
+//            
+//            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+//            [ud setBool:YES forKey:isIAPedkey];
+//            [ud synchronize];
+//
+//            [self updateConents];
+//            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+//            break;
+//        }
+//    }
+//    [self.spinner stopAnimating];
+//}
+
+- (void)commitPurchase{
+    NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
+    [iCloud setObject:[self.notes copy] forKey:noteCont];
+    [iCloud setBool:YES forKey:isIAPedkey];
+    [iCloud synchronize];
+    
+//    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+//    [ud setBool:YES forKey:isIAPedkey];
+//    [ud synchronize];
+//    
+    [self updateConents];
+    [self updateButtons];
+    NSLog(@"purchase syn and commited");
+}
+
+- (void)commitNoteData{
+    bool isPurchased = [[NSUbiquitousKeyValueStore defaultStore] boolForKey:isIAPedkey];
+    if(isPurchased){
+        NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
+        [iCloud setObject:self.notes forKey:noteCont];
+        [iCloud synchronize];
+        
+    }else{
+        NSUserDefaults *ud = [[NSUserDefaults alloc]init];
+        [ud setObject:self.notes forKey:noteCont];
+        [ud synchronize];
+    }
+}
+
+//-(void)resetApplicationAccount{
+//    NSLog(@"app reset called ...");
+//    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+//    [ud setBool:NO forKey:isIAPedkey];
+//    [ud synchronize];
+//    [self updateConents];
+//
+//}
 
 #pragma mark - Table view data source
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-   return [self.notes count];
+    return [self.notes count];
 }
 
 
@@ -128,7 +310,7 @@ static bool hasPaid = NO;
     unsigned inversedIdx = (unsigned)(self.notes.count -indexPath.row - 1);
     NSString *timekey = keys[inversedIdx];
     
-
+    
     //date interpretation
     
     NSArray*pieces = [timekey componentsSeparatedByString:BILL_DICCONTENT];
@@ -147,7 +329,7 @@ static bool hasPaid = NO;
     
     //title build
     NSString *title = @"default";
-
+    
     NSDictionary *composed;
     
     
@@ -158,7 +340,7 @@ static bool hasPaid = NO;
     
     cell.textLabel.text = title;
     cell.detailTextLabel.text = _date;
-
+    
     return cell;
 }
 
@@ -175,15 +357,15 @@ static bool hasPaid = NO;
 // Override to support editing the table view. DELETE
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     NSArray*keys_unsort =[self.notes allKeys];
     NSArray* keys = [keys_unsort sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     unsigned inversedIdx = (unsigned)(self.notes.count -indexPath.row - 1);
     NSString *timekey = keys[inversedIdx];
     
     [self.notes removeObjectForKey:timekey];
-
-    if(hasPaid){
+    bool isPurchased = [[NSUbiquitousKeyValueStore defaultStore] boolForKey:isIAPedkey];
+    if(isPurchased){
         NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
         [iCloud setObject:self.notes forKey:noteCont];
         [iCloud synchronize];
@@ -193,8 +375,8 @@ static bool hasPaid = NO;
         [ud setObject:self.notes forKey:noteCont];
         [ud synchronize];
     }
-
-
+    
+    
     [self.tableView reloadData];
 }
 
@@ -205,18 +387,18 @@ static bool hasPaid = NO;
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-
+    
     NSIndexPath *indexPath = nil;
     
     
     if ([sender isKindOfClass:[UITableViewCell class]]) {
-            indexPath = [self.tableView indexPathForCell:sender];
+        indexPath = [self.tableView indexPathForCell:sender];
     }
-
+    
     if ([segue.identifier isEqualToString:segueAddID]) {
         NSString *timestamp = [NSString stringWithFormat: @"%f", [[NSDate date]timeIntervalSince1970]];
         
-
+        
         [self.tableView reloadData];
         
         if ([segue.destinationViewController respondsToSelector:@selector(setBillID:)]) {
@@ -224,7 +406,7 @@ static bool hasPaid = NO;
         }
     }else if ([segue.identifier isEqualToString:segueCellID]) {
         if ([segue.destinationViewController respondsToSelector:@selector(setBillID:)]) {
-        
+            
             NSArray*keys_unsort =[self.notes allKeys];
             NSArray* keys = [keys_unsort sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
             unsigned inversedIdx = (unsigned)(self.notes.count -indexPath.row - 1);
@@ -237,101 +419,11 @@ static bool hasPaid = NO;
 
 
 
-#pragma marks - in-app payment handlers -
-
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
-    SKProduct *validProduct = nil;
-    int count =(int)[response.products count];
-    if(count > 0){
-        validProduct = [response.products objectAtIndex:0];
-//        NSLog(@"Products Available!");
-        [self commitPurchase:validProduct];
-    }
-    
-    if(!validProduct){
-//        NSLog(@"No products available");
-        //this is called if your product id is not valid, this shouldn't be called unless that happens.
-    }
-}
-
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
-    for(SKPaymentTransaction *transaction in transactions){
-        //if you have multiple in app purchases in your app,
-        //you can get the product identifier of this transaction
-        //by using transaction.payment.productIdentifier
-        //
-        //then, check the identifier against the product IDs
-        //that you have defined to check which product the user
-        //just purchased
-        
-        switch(transaction.transactionState){
-            case SKPaymentTransactionStatePurchasing:
-//                NSLog(@"Transaction state -> Purchasing");
-                //called when the user is in the process of purchasing, do not add any of your own code here.
-                break;
-            case SKPaymentTransactionStatePurchased:
-                //this is called when the user has successfully purchased the package (Cha-Ching!)
-                //                [self doRemoveAds];
-//                NSLog(@"Just purchased");
-                //you can add your code for what you want to happen when the user buys the purchase here, for this tutorial we use removing ads
-                
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-//                NSLog(@"Transaction state -> Purchased");
-                break;
-            case SKPaymentTransactionStateRestored:
-                NSLog(@"Transaction state -> Restored");
-                //add the same code as you did from SKPaymentTransactionStatePurchased here
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                break;
-            case SKPaymentTransactionStateFailed:
-                //called when the transaction does not finish
-                if(transaction.error.code == SKErrorPaymentCancelled){
-                    NSLog(@"Transaction state -> Cancelled");
-                    //the user cancelled the payment ;(
-                }
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                break;
-            default:
-                ;
-        }
-    }
-}
-
-
-- (void)commitPurchase:(SKProduct *)SKProduct{
-    NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
-    hasPaid = YES;
-    [iCloud setBool:hasPaid forKey:hasPaidKey];
-    [iCloud setObject:[self.notes copy] forKey:noteCont];
-    [iCloud synchronize];
-    [self updateConents];
-    NSLog(@"Syn done");
-}
-
 
 #pragma marks - toolkits -
 
 
-- (void)checkContent{
-    if([self.notes count] == 0){
-        self.notes = [self createExampleDictionary];
-        [self commitNoteData];
-    }
-        
-}
 
-- (void)commitNoteData{
-    if(hasPaid){
-        NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
-        [iCloud setObject:self.notes forKey:noteCont];
-        [iCloud synchronize];
-        
-    }else{
-        NSUserDefaults *ud = [[NSUserDefaults alloc]init];
-        [ud setObject:self.notes forKey:noteCont];
-        [ud synchronize];
-    }
-}
 
 - (NSMutableDictionary *)createExampleDictionary{
     NSDictionary *eg1 = @{BILL_DICTITLE: @"trip with friends (example)", BILL_DICSUM: @"33.00", BILL_DICCONTENT:@"trip with friends\n\n12 Jim tickets\n8   Mark parking\n-2   2 coins found on road\n15 Emmy bought cookies\n"};
