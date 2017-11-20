@@ -7,12 +7,47 @@
 //
 
 #import "CTAppDelegate.h"
+//#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
+#import "CTContants.h"
 
 @implementation CTAppDelegate
+
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+//    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+//                                                                  openURL:url
+//                                                        sourceApplication:sourceApplication
+//                                                               annotation:annotation
+//                    ];
+//    BOOL handled2 = [WeiboSDK handleOpenURL:url delegate:self];
+//    BOOL handled3 = [TencentOAuth HandleOpenURL:url];
+//    BOOL handled4 = [WXApi handleOpenURL:url delegate:self];
+    NSLog(@"URL URL URL !!! %@",url.absoluteString);
+    
+    // Add any custom logic here.
+//    return handled;
+    return YES;
+}
+
+//-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+//    return [WXApi handleOpenURL:url delegate:self];
+//}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+//    [[FBSDKApplicationDelegate sharedInstance] application:application
+//                             didFinishLaunchingWithOptions:launchOptions];
+//
+     // Add any custom logic here.
+//    [WeiboSDK enableDebugMode:YES];
+//    [WeiboSDK registerApp:kAppKey];
+//    [WXApi registerApp:@"wxd930ea5"];
+    
     return YES;
 }
 							
@@ -42,5 +77,13 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+//
+//- (void)didReceiveWeiboRequest:(WBBaseRequest *)request {
+//    NSLog(@"receive weibo request");
+//}
+//
+//- (void)didReceiveWeiboResponse:(WBBaseResponse *)response {
+//    NSLog(@"receive weibo response");
+//}
 
 @end

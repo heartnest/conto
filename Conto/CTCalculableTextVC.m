@@ -18,18 +18,11 @@
 
 @implementation CTCalculableTextVC
 
-
-static NSString *noteCont = @"comaddnotefullstore";
-//static NSString *hasPaidKey = @"com.icloud.key.hasPaid";
-static NSString *isIAPedkey = @"com.iap.arePurchaseMade";
-//static bool isPurchased = NO;
-
 #pragma marks - viewController lifecycle -
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
 
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -40,26 +33,16 @@ static NSString *isIAPedkey = @"com.iap.arePurchaseMade";
                                                  name:UIKeyboardWillHideNotification object:self.view.window];
     
     
-    NSUbiquitousKeyValueStore *iCloud =  [NSUbiquitousKeyValueStore defaultStore];
-//    for (NSString *key in iCloud.dictionaryRepresentation.allKeys)
-//    {
-//         NSLog(@"working icloud...view 2,%@",key);
-//    }
 
-//    isPurchased = [iCloud boolForKey:hasPaidKey];
-//    bool isPurchased = [[NSUserDefaults standardUserDefaults] boolForKey:isIAPedkey];
     
-    bool isPurchased = [[NSUbiquitousKeyValueStore defaultStore] boolForKey:isIAPedkey];
+    NSString *userid = [[NSUserDefaults standardUserDefaults] objectForKey:  NSUD_USERID ];
+    NSString *noteKey =  (userid != nil) ?  [NOTEACCOUNT stringByAppendingString:userid] : NOTEACCOUNT;
+
     NSDictionary *composed,*nsdic;
-    if (isPurchased) {
-        nsdic = [iCloud dictionaryForKey: noteCont];
-        NSLog(@"View did load, icloud mode");
-    }else{
-        NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
-        nsdic = [sd dictionaryForKey: noteCont];
-//      NSLog(@"View did load, local mode");
-    }
-    
+
+    NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
+    nsdic = [sd dictionaryForKey: noteKey];
+
     composed = [nsdic objectForKey: self.billDictionaryID];
 
     if (composed != nil) {
@@ -126,18 +109,6 @@ static NSString *isIAPedkey = @"com.iap.arePurchaseMade";
                                               BOOL completed,
                                               NSArray *returnedItems,
                                               NSError *error){
-        // react to the completion
-//        if (completed) {
-//            // user shared an item
-//            NSLog(@"We used activity type%@", activityType);
-//        } else {
-//            // user cancelled
-//            NSLog(@"We didn't want to share anything after all.");
-//        }
-//        
-//        if (error) {
-//            NSLog(@"An Error occured: %@, %@", error.localizedDescription, error.localizedFailureReason);
-//        }
     };
 }
 
@@ -172,32 +143,29 @@ static NSString *isIAPedkey = @"com.iap.arePurchaseMade";
     NSDictionary *bill = @{BILL_DICTITLE: title, BILL_DICCONTENT: text, BILL_DICSUM: sumStr};
     
     
-//    bool isPurchased = [[NSUserDefaults standardUserDefaults] boolForKey:isIAPedkey];
-    bool isPurchased = [[NSUbiquitousKeyValueStore defaultStore] boolForKey:isIAPedkey];
-    if(isPurchased){
-        NSLog(@"push view save context in cloud");
-        NSUbiquitousKeyValueStore *store =  [NSUbiquitousKeyValueStore defaultStore];
-        NSMutableDictionary *cnt = [[store objectForKey:noteCont] mutableCopy];
-        if(!cnt){
-            cnt =[[NSMutableDictionary alloc] init];
-        }
-        [cnt setValue:bill forKey:self.billDictionaryID];
-        [store setObject:cnt forKey:noteCont];
-        [store synchronize];
-   
+    NSString *useremail = [[NSUserDefaults standardUserDefaults] objectForKey:  NSUD_USEREMAIL ];
+    NSString *userid = [[NSUserDefaults standardUserDefaults] objectForKey:  NSUD_USERID ];
+    NSString *noteKey =  (userid != nil) ?  [NOTEACCOUNT stringByAppendingString:userid] : NOTEACCOUNT;
+    
+    NSUserDefaults *store = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *cnt = [[NSMutableDictionary alloc] init];
+    cnt = [[store objectForKey:noteKey] mutableCopy];
+    if(!cnt){
+        cnt =[[NSMutableDictionary alloc] init];
     }
-    else{
-        NSLog(@"push view save context in local");
-        NSUserDefaults *store = [NSUserDefaults standardUserDefaults];
-        NSMutableDictionary *cnt = [[NSMutableDictionary alloc] init];
-        cnt = [[store objectForKey:noteCont] mutableCopy];
-        if(!cnt){
-            cnt =[[NSMutableDictionary alloc] init];
-        }
-        [cnt setObject:bill forKey:self.billDictionaryID];
-        [store setObject:cnt forKey:noteCont];
-        [store synchronize];
-    }
+    [cnt setObject:bill forKey:self.billDictionaryID];
+    
+//    NSLog(@"saving for %@",noteKey); 
+    [store setObject:cnt forKey:noteKey];
+    [store synchronize];
+
+
+    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+    NSNumber *timeStampObj = [NSNumber numberWithDouble: timeStamp];
+    NSString *timestamp = [timeStampObj stringValue];
+    NSString *request_url = [NSString stringWithFormat:@"http://datalet.net/addnote/handle_update.php?secret=%@&&userid=%@&&email=%@&&time=%@", DATALET_SECRET , userid,useremail,timestamp];
+    [self postJsonData:request_url dictionary:[cnt copy] ];
+
 
 }
 
@@ -251,5 +219,41 @@ static NSString *isIAPedkey = @"com.iap.arePurchaseMade";
 {
     self.panel.contentInset = UIEdgeInsetsZero;
 }
+
+
+-(void)postJsonData:(NSString *)request_url_unsafe dictionary:(NSDictionary *)mapData{
+    NSError *error1;
+    NSString* request_url = [request_url_unsafe stringByAddingPercentEscapesUsingEncoding:
+                             NSASCIIStringEncoding];
+
+    NSURL *url = [NSURL URLWithString:request_url];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setHTTPMethod:@"POST"];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:mapData options:0 error:&error1];
+    [request setHTTPBody:postData];
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+
+        if (data) {
+            NSHTTPURLResponse * httpResponse  = (NSHTTPURLResponse*)response;
+            NSInteger statusCode = httpResponse.statusCode;
+            if (statusCode == 200) {
+                NSString* responstr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                NSLog(@"%@",responstr);
+                
+            }
+        }else if (error)
+        {
+            NSLog(@"Errorrrrrrr....%@",error);
+        }
+        
+    }];
+    [dataTask resume];
+}
+
 
 @end
