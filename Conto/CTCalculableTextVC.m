@@ -35,12 +35,12 @@
     
 
     
-    NSString *userid = [[NSUserDefaults standardUserDefaults] objectForKey:  NSUD_USERID ];
-    NSString *noteKey =  (userid != nil) ?  [NOTEACCOUNT stringByAppendingString:userid] : NOTEACCOUNT;
-
+    
     NSDictionary *composed,*nsdic;
 
     NSUserDefaults *sd = [NSUserDefaults standardUserDefaults];
+    
+    NSString *noteKey  = [self getNoteKey];
     nsdic = [sd dictionaryForKey: noteKey];
 
     composed = [nsdic objectForKey: self.billDictionaryID];
@@ -58,7 +58,14 @@
 -(void) viewWillDisappear:(BOOL)animated {
     if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
         //save text
-        [self saveContent];
+
+        NSString *noteKey  = [self getNoteKey];
+        NSDictionary *composed = [[[NSUserDefaults standardUserDefaults] dictionaryForKey: noteKey] objectForKey: self.billDictionaryID];
+        NSString *savedcontent = [composed objectForKey:BILL_DICCONTENT];
+        NSString *newcontent = self.panel.text;
+        if (![savedcontent isEqual:newcontent]) {
+             [self saveContent];
+        }
     }
     [super viewWillDisappear:animated];
 }
@@ -115,6 +122,11 @@
 
 #pragma marks - text interpretations -
 
+-(NSString *)getNoteKey{
+    NSString *userid = [[NSUserDefaults standardUserDefaults] objectForKey:  NSUD_USERID ];
+    NSString *noteKey =  (userid != nil) ?  [NOTEACCOUNT stringByAppendingString:userid] : NOTEACCOUNT;
+    return noteKey;
+}
 - (void)saveContent{
     //sum
     float sum = 0;
@@ -159,12 +171,17 @@
     [store setObject:cnt forKey:noteKey];
     [store synchronize];
 
-
-    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
-    NSNumber *timeStampObj = [NSNumber numberWithDouble: timeStamp];
-    NSString *timestamp = [timeStampObj stringValue];
-    NSString *request_url = [NSString stringWithFormat:@"http://datalet.net/addnote/handle_update.php?secret=%@&&userid=%@&&email=%@&&time=%@", DATALET_SECRET , userid,useremail,timestamp];
-    [self postJsonData:request_url dictionary:[cnt copy] ];
+    if (userid != nil) {
+//        NSLog(@"id not nil");
+        NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+        NSNumber *timeStampObj = [NSNumber numberWithDouble: timeStamp];
+        NSString *timestamp = [timeStampObj stringValue];
+        NSString *request_url = [NSString stringWithFormat:@"http://datalet.net/addnote/handle_update.php?secret=%@&&userid=%@&&email=%@&&time=%@", DATALET_SECRET , userid,useremail,timestamp];
+        [self postJsonData:request_url dictionary:[cnt copy] ];
+    }else{
+//        NSLog(@"id IS nil");
+    }
+    
 
 
 }
@@ -243,7 +260,7 @@
             NSInteger statusCode = httpResponse.statusCode;
             if (statusCode == 200) {
                 NSString* responstr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                NSLog(@"%@",responstr);
+                NSLog(@"Resp from server, %@",responstr);
                 
             }
         }else if (error)

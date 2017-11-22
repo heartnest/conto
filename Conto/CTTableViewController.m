@@ -68,7 +68,6 @@ NSNumberFormatter * _priceFormatter;
     NSString *userid = [ud objectForKey:  NSUD_USERID ];
     NSString *noteKey =  (userid != nil) ?  [NOTEACCOUNT stringByAppendingString:userid] : NOTEACCOUNT;
     if([ud objectForKey: noteKey] == nil && [ud objectForKey: NOTEACCOUNT] != nil){
-//        NSLog(@"performing update");
         [ud setObject:[ud objectForKey: NOTEACCOUNT] forKey:noteKey];
         [ud synchronize];
     }
@@ -92,11 +91,8 @@ NSNumberFormatter * _priceFormatter;
 -(void)updateButtons{
     NSString *userid = [[NSUserDefaults standardUserDefaults] objectForKey:  NSUD_USERID ];
     if(userid != nil){
-        if ([[NSUserDefaults standardUserDefaults] objectForKey:  NSUD_USERNAME ]) {
-            self.onCloudLabel.title = [[NSUserDefaults standardUserDefaults] objectForKey:  NSUD_USERNAME ];
-        }else{
-            self.onCloudLabel.title = [[NSUserDefaults standardUserDefaults] objectForKey:  NSUD_USEREMAIL ];
-        }
+        self.onCloudLabel.title = ([[NSUserDefaults standardUserDefaults] objectForKey:  NSUD_USERNAME ])?
+        [[NSUserDefaults standardUserDefaults] objectForKey:  NSUD_USERNAME ]:[[NSUserDefaults standardUserDefaults] objectForKey:  NSUD_USEREMAIL ];
     }else{
         self.onCloudLabel.title = @"Welcome";
     }

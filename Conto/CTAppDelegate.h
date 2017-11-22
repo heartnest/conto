@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FacebookSDK/FacebookSDK.h>
+
 //#import "WXApi.h"
 //#import "WeiboSDK.h"
 //#import "TencenOpenAPI/sdkdef.h"
 
 //@interface CTAppDelegate : UIResponder <UIApplicationDelegate, WeiboSDKDelegate,WXApiDelegate>
 @interface CTAppDelegate : UIResponder <UIApplicationDelegate>
-//@interface CTAppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow *window;
 //-(void)openActiveSessionWithPermissions:(NSArray *)permissions allowLoginUI:(BOOL)allowLoginUI;
 

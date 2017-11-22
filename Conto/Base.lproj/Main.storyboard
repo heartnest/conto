@@ -173,16 +173,6 @@
                                     <constraint firstAttribute="width" constant="105" id="qwU-Mn-zgF"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRy-FB-rKb">
-                                <rect key="frame" x="60" y="217" width="255" height="34"/>
-                                <color key="backgroundColor" red="0.87169128656387329" green="0.87801426649093628" blue="0.87809211015701294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="tintColor" red="0.38449984788894653" green="0.40155741572380066" blue="0.3880612850189209" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Register with email"/>
-                                <connections>
-                                    <segue destination="tlS-xl-89e" kind="push" identifier="account_pwd_segue" id="ueC-7c-fE0"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPC-3M-txy">
                                 <rect key="frame" x="308" y="486" width="41" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -231,29 +221,31 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="puo-3r-1tP" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="115" y="279" width="145" height="30"/>
-                                <state key="normal" title="Log in with Facebook"/>
-                            </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Rh1-IQ-3GR">
                                 <rect key="frame" x="177" y="109" width="20" height="20"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRy-FB-rKb">
+                                <rect key="frame" x="66" y="218" width="260" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.87169128656387329" green="0.87801426649093628" blue="0.87809211015701294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="tintColor" red="0.38449984788894653" green="0.40155741572380066" blue="0.3880612850189209" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-1"/>
+                                <state key="normal" title="Register with email"/>
+                                <connections>
+                                    <segue destination="tlS-xl-89e" kind="push" identifier="account_pwd_segue" id="ueC-7c-fE0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="puo-3r-1tP" firstAttribute="centerX" secondItem="mAx-af-zQP" secondAttribute="centerX" id="0MS-JN-OE9"/>
                             <constraint firstItem="Rh1-IQ-3GR" firstAttribute="top" secondItem="SNj-EQ-WLZ" secondAttribute="bottom" constant="45" id="2mq-6n-des"/>
-                            <constraint firstAttribute="trailing" secondItem="puo-3r-1tP" secondAttribute="trailing" constant="115" id="39h-tX-dcG"/>
                             <constraint firstItem="0iW-aP-rib" firstAttribute="bottom" secondItem="aGM-M4-b1H" secondAttribute="top" id="3D1-wI-Q1O"/>
                             <constraint firstItem="wPC-3M-txy" firstAttribute="top" secondItem="KDY-Gf-e0T" secondAttribute="bottom" constant="52" id="3Ur-sA-4Ge"/>
                             <constraint firstAttribute="bottom" secondItem="4gc-cx-Ncl" secondAttribute="bottom" constant="151" id="3v0-r6-0sc"/>
                             <constraint firstAttribute="trailing" secondItem="0iW-aP-rib" secondAttribute="trailing" id="5TE-A9-4DC"/>
                             <constraint firstAttribute="bottom" secondItem="wPC-3M-txy" secondAttribute="bottom" constant="160" id="BXK-qc-Riy"/>
-                            <constraint firstItem="vA2-u8-e7S" firstAttribute="leading" secondItem="zRy-FB-rKb" secondAttribute="leading" id="ED2-e3-fgN"/>
-                            <constraint firstItem="zRy-FB-rKb" firstAttribute="top" secondItem="vA2-u8-e7S" secondAttribute="bottom" constant="30" id="I73-4y-ft0"/>
                             <constraint firstItem="fqM-J2-NHN" firstAttribute="leading" secondItem="vA2-u8-e7S" secondAttribute="leading" id="JQu-EW-Eyj"/>
-                            <constraint firstItem="zRy-FB-rKb" firstAttribute="centerX" secondItem="mAx-af-zQP" secondAttribute="centerX" id="LA9-bv-ZCu"/>
-                            <constraint firstItem="puo-3r-1tP" firstAttribute="top" secondItem="SNj-EQ-WLZ" secondAttribute="bottom" constant="215" id="OyO-sI-yHx"/>
                             <constraint firstItem="w0s-BH-92n" firstAttribute="top" secondItem="fqM-J2-NHN" secondAttribute="bottom" constant="31" id="SQ4-tU-74d"/>
                             <constraint firstItem="fqM-J2-NHN" firstAttribute="top" secondItem="SNj-EQ-WLZ" secondAttribute="bottom" constant="33" id="aVD-5w-LDN"/>
                             <constraint firstItem="fqM-J2-NHN" firstAttribute="centerX" secondItem="0iW-aP-rib" secondAttribute="centerX" id="hwS-r0-IGv"/>
@@ -273,7 +265,6 @@
                         <outlet property="imgProfilePicture" destination="4gc-cx-Ncl" id="Tfe-Ud-ZJB"/>
                         <outlet property="lblEmail" destination="wPC-3M-txy" id="8au-GH-wzJ"/>
                         <outlet property="lblFullname" destination="KDY-Gf-e0T" id="Pyo-LM-6je"/>
-                        <outlet property="loginButton" destination="puo-3r-1tP" id="EHb-tP-rPL"/>
                         <outlet property="login_btn" destination="w0s-BH-92n" id="wCE-kf-k3h"/>
                         <outlet property="login_mail" destination="fqM-J2-NHN" id="VOl-bW-PDP"/>
                         <outlet property="login_pwd" destination="vA2-u8-e7S" id="8Ah-a7-LIm"/>
@@ -367,7 +358,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nac-gv-3KS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1840.5" y="57.5"/>
+            <point key="canvasLocation" x="1782" y="-105"/>
         </scene>
         <!--ⓘ AddNote-->
         <scene sceneID="QsU-DZ-0ZF">
@@ -384,9 +375,9 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mdD-70-Wv7">
                                 <rect key="frame" x="21" y="14" width="332" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Why useful ? === Quite often, when we write down notes, we also want to know the addition of the numbers inside our text. Now we can do it in this way (imagine I made the following purchase):  2 suger 3 bread
+                                <mutableString key="text">Why useful ? === Quite often, when we write down notes, we also want to know the addition of the numbers inside our text. Now we can do it in this way (imagine I made the following purchase):  2 suger 3 bread
 --- total: 5  Our magic note will tell, you spent 5$ this morning.  
-What does iCloud Backup do? === In the demo version, data are stored locally, which means that if you change your iPhone, you lose them all. However, with the help of iCloud, your historical data will be easily found as long as you log in.</string>
+Account === In the demo version, data are stored locally, which means that if you change your iPhone, you lose them all. However, once you have an account, your data will be protected on the cloud and can be reloaded as long as you log in.</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>

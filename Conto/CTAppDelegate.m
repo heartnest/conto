@@ -7,7 +7,7 @@
 //
 
 #import "CTAppDelegate.h"
-//#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 #import "CTContants.h"
 
@@ -17,19 +17,19 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     
-//    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
-//                                                                  openURL:url
-//                                                        sourceApplication:sourceApplication
-//                                                               annotation:annotation
-//                    ];
+    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                  openURL:url
+                                                        sourceApplication:sourceApplication
+                                                               annotation:annotation
+                    ];
 //    BOOL handled2 = [WeiboSDK handleOpenURL:url delegate:self];
 //    BOOL handled3 = [TencentOAuth HandleOpenURL:url];
 //    BOOL handled4 = [WXApi handleOpenURL:url delegate:self];
-    NSLog(@"URL URL URL !!! %@",url.absoluteString);
+//    NSLog(@"URL URL URL !!! %@",url.absoluteString);
     
     // Add any custom logic here.
-//    return handled;
-    return YES;
+    return handled;
+//    return YES;
 }
 
 //-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{

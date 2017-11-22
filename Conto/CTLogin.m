@@ -18,25 +18,27 @@
 #import <StoreKit/StoreKit.h>
 
 
-@interface CTLogin ()<SKProductsRequestDelegate, SKPaymentTransactionObserver>
+@interface CTLogin ()<SKProductsRequestDelegate, SKPaymentTransactionObserver,UIActionSheetDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *login_mail;
 @property (strong, nonatomic) IBOutlet UITextField *login_pwd;
 @property (strong, nonatomic) IBOutlet UIButton *login_btn;
 @property (strong, nonatomic) IBOutlet UIButton *login_register_btn;
-@property (strong, nonatomic) IBOutlet UIButton *logout_btn;
 
-@property (strong, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
+@property (strong, nonatomic) IBOutlet UIButton *logout_btn;
+@property (strong, nonatomic) IBOutlet FBSDKLoginButton *fb_login_btn;
+@property (strong, nonatomic) IBOutlet UILabel *label_purchase_state;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgProfilePicture;
 
-@property (strong, nonatomic) IBOutlet UILabel *label_purchase_state;
+
 @property (weak, nonatomic) IBOutlet UILabel *lblFullname;
 @property (weak, nonatomic) IBOutlet UILabel *lblEmail;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *purchaseBtn;
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) NSString *userid;
+@property (strong, nonatomic) NSString *useremail;
 @property (strong, nonatomic) SKProductsRequest *request; //compatibility with old ipad and ios
 @property (nonatomic, strong) CTAppDelegate *appDelegate;
 
@@ -51,50 +53,36 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+     [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
+    
     [self drawLogoutBtn];
     [self drawPurchaeStateBtn];
+    [self drawFacebookBtn];
+    [self drawRegisterBtn];
     
     self.spinner.hidesWhenStopped = YES;
-//    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
-//    self.loginButton = [[FBSDKLoginButton alloc] init];
-//    self.loginButton.readPermissions =
-//    @[@"public_profile", @"email", @"user_friends"];
-
- 
-    // facebook customed button example
-//    UIButton *myLoginButton=[UIButton buttonWithType:UIButtonTypeCustom];
-//    myLoginButton.backgroundColor=[UIColor darkGrayColor];
-//    myLoginButton.frame=CGRectMake(0,0,180,40);
-//    myLoginButton.center = self.view.center;
-//    [myLoginButton setTitle: @"My Login Button" forState: UIControlStateNormal];
-//    // Handle clicks on the button
-//    [myLoginButton
-//     addTarget:self
-//     action:@selector(loginButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-//    // Add the button to the view
-//    [self.view addSubview:myLoginButton];
     
-    
+   
 //    self.imgProfilePicture.layer.masksToBounds = YES;
 //    self.imgProfilePicture.layer.cornerRadius = 30.0;
 //    self.imgProfilePicture.layer.borderColor = [UIColor whiteColor].CGColor;
 //    self.imgProfilePicture.layer.borderWidth = 1.0;
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(fbtest)
-//                                                 name:FBSDKProfileDidChangeNotification
-//                                               object:nil];
-//
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(accessTokenChange)
-//                                                 name:FBSDKAccessTokenDidChangeNotification
-//                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(fbProfileChange)
+                                                 name:FBSDKProfileDidChangeNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(accessTokenChange)
+                                                 name:FBSDKAccessTokenDidChangeNotification
+                                               object:nil];
     
     
     self.lblFullname.hidden = YES;
     self.lblEmail.hidden = YES;
     self.imgProfilePicture.hidden = YES;
-    self.loginButton.hidden = YES;
+
     
 }
 
@@ -116,7 +104,7 @@
             [self UIShowPurchasedState];
 
         }else{
-            [self UIShowUnPurchasedState];
+            [self UIShowUnpurchasedState];
         }
         self.navigationItem.title = uemail;
     }else{
@@ -125,7 +113,6 @@
     }
 }
 -(void) viewWillDisappear:(BOOL)animated {
-    
     [super viewWillDisappear:animated];
 }
 
@@ -158,18 +145,35 @@
 
 # pragma marks - UI design -
 
+-(void)drawFacebookBtn{
+
+    self.fb_login_btn =  [[FBSDKLoginButton alloc] init];
+    self.fb_login_btn.readPermissions =
+    @[@"public_profile", @"email"];
+
+    self.fb_login_btn.frame= CGRectMake(0,0,260,35);
+    self.fb_login_btn.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.width/2+120);
+
+    [self.view addSubview:self.fb_login_btn];
+
+}
+
+-(void)drawRegisterBtn{
+    self.login_register_btn.frame=CGRectMake(0,0,260,35);
+    self.login_register_btn.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.width*7/10);
+}
 
 -(void)drawPurchaeStateBtn{
     self.label_purchase_state=[[UILabel alloc] init];
     self.label_purchase_state.frame=CGRectMake(0,0,180,40);
-    self.label_purchase_state.center = CGPointMake(self.view.frame.size.width/2+10, 150);
+    self.label_purchase_state.center = CGPointMake(self.view.frame.size.width/2, 150);
     [self.view addSubview:self.label_purchase_state];
 }
 
 -(void)drawLogoutBtn{
         self.logout_btn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.logout_btn.backgroundColor=[UIColor lightGrayColor];
-        self.logout_btn.frame=CGRectMake(60,30,180,40);
+        self.logout_btn.frame=CGRectMake(60,30,260,35);
         self.logout_btn.center = self.view.center;
         [ self.logout_btn setTitle: @"Log Out" forState: UIControlStateNormal];
         [ self.logout_btn
@@ -190,6 +194,8 @@
     self.login_mail.hidden = isLogged;
     self.label_purchase_state.hidden = !isLogged;
     self.logout_btn.hidden = !isLogged;
+    
+    self.fb_login_btn.hidden = isLogged;
 }
 
 -(void) UIShowPurchasedState{
@@ -197,7 +203,7 @@
     self.label_purchase_state.text = @"App Purchased";
 }
 
--(void) UIShowUnPurchasedState{
+-(void) UIShowUnpurchasedState{
     self.purchaseBtn.title = @"Purchase";
     self.label_purchase_state.text = @"App Not Purchased";
 }
@@ -205,23 +211,19 @@
 # pragma marks - FACEBOOK flow -
 
 -(void) accessTokenChange{
-    NSLog(@"1aabbcc");
     if ([FBSDKAccessToken currentAccessToken]) {
-        
-        NSLog(@"a1");
+        // get user info when login
         [self fetchFbUserInfo];
     }else{
-        NSLog(@"a2");
+        // do something when user logout (already treated with log out)
     }
 }
 
--(void) fbtest{
-    NSLog(@"aabbcc");
+-(void) fbProfileChange{
     if ([FBSDKAccessToken currentAccessToken]) {
-        NSLog(@"1");
+       // do something when profile updated
         
     }else{
-        NSLog(@"2");
     }
 }
 -(void)fetchFbUserInfo{
@@ -229,13 +231,13 @@
     if ([FBSDKAccessToken currentAccessToken])
     {
         NSLog(@"Token is available : %@",[[FBSDKAccessToken currentAccessToken]tokenString]);
-        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields": @"id, name, link, first_name, last_name, picture.type(large), email, birthday ,location ,friends ,hometown , friendlists"}]
-         //        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields": @"id, name, first_name, last_name, picture.type(large), email"}]
+//        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields": @"id, name, link, first_name, last_name, picture.type(large), email, birthday ,location ,friends ,hometown , friendlists"}]
+        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields": @"id, name, first_name, last_name, picture.type(large), email"}]
          startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
              if (!error)
              {
-                 NSLog(@"resultisfetchFbUserInfo:%@",result);
-                 [self finalizeUserLogin:result];
+//                 NSLog(@"resultisfetchFbUserInfo:%@",result);
+                 [self handleFacebookResponse:result];
                  
              }
              else
@@ -249,24 +251,57 @@
     }
     
 }
--(void)finalizeUserLogin:(NSDictionary *)result{
+-(void)handleFacebookResponse:(NSDictionary *)result{
     // profile image
-    NSURL *pictureURL = [NSURL URLWithString:[[[result objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"]];
-    self.imgProfilePicture.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:pictureURL]];
+//    NSURL *pictureURL = [NSURL URLWithString:[[[result objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"]];
+//    self.imgProfilePicture.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:pictureURL]];
     
-    NSString *uid = [result objectForKey:@"id"];
-    NSString *name = [result objectForKey:@"first_name"];
-    NSLog(@"%@,%@",uid,name);
+    NSString *fbid = [result objectForKey:@"id"];
+    NSString *fbname = [result objectForKey:@"first_name"];
+    NSString *fbemail = [result objectForKey:@"email"];
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setObject:fbname forKey:NSUD_USERNAME];
+    
+    self.useremail = fbemail;
+    NSString *request_url = [NSString stringWithFormat:@"http://datalet.net/login/facebook.php?secret=%@&&email=%@&&fbname=%@&&fbid=%@", DATALET_SECRET , fbemail,fbname,fbid];
+    [self sendHttpRequest:request_url withSel:@"login_facebook"];
+    //webserver http call, handle login event.
+    // get user database id, commit login operations.
+    
+//    NSLog(@"%@,%@",fbid,fbname);
 }
 
 
 #pragma marks - IBAction Outlets  -
 
 - (IBAction)loginBtn:(UIButton *)sender {
+
     NSString *lgmail = self.login_mail.text;
     NSString *lgpwd = self.login_pwd.text;
+     self.useremail = lgmail;
     NSString *request_url = [NSString stringWithFormat:@"http://datalet.net/login/mail_login.php?secret=%@&&email=%@&&pwd=%@", DATALET_SECRET , lgmail,lgpwd];
     [self sendHttpRequest:request_url withSel:@"login"];
+
+}
+
+- (void)actionSheet:(UIActionSheet *)popup clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (popup.tag) {
+        case 1: {
+            switch (buttonIndex) {
+                case 0:
+                    [self logoutAction];
+                    break;
+            
+                default:
+                    break;
+            }
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 
@@ -294,6 +329,19 @@
 
 
 -(void)logoutButtonClicked{
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Are you sure to log out?"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:@"Log out"
+                                                    otherButtonTitles: nil];
+    
+    actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+    actionSheet.tag = 1;
+    [actionSheet showInView:self.view];
+    
+}
+-(void)logoutAction{
     // data
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:NSUD_USERID];
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:NSUD_USERNAME];
@@ -301,9 +349,14 @@
     
     // UI
     [self toggleLayoutForAccount:NO];
-     self.navigationItem.title = @"Connect to AddNote";
+    self.navigationItem.title = @"Connect to AddNote";
     self.purchaseBtn.title = @"Purchase";
-
+    
+    // facebook
+    if ([FBSDKAccessToken currentAccessToken]) {
+        [[FBSDKLoginManager new] logOut];
+    }
+    
 }
 
 
@@ -398,13 +451,12 @@
     [self sendHttpRequest:request_url withSel:@"purchase"];
 }
 
-# pragma marks - Event Hanlders -
-
 
 -(void) handlePurchaseResponse:(NSString *)msg{
-//    [self alert:msg];
     [self.spinner stopAnimating];
 }
+
+# pragma marks - Event Hanlders -
 
 -(void) handleReloadNote:(NSDictionary *)dic{
     NSString *paid = [dic objectForKey:@"paid"];
@@ -443,10 +495,10 @@
         
         // data
         NSString *userid = stringsplit[1];
-        NSString *email =self.login_mail.text;
+        
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         [ud setObject:userid forKey:NSUD_USERID];
-        [ud setObject:email forKey:NSUD_USEREMAIL];
+        [ud setObject:self.useremail forKey:NSUD_USEREMAIL];
         if (stringsplit.count > 2) {
             [[NSUserDefaults standardUserDefaults] setObject:stringsplit[2] forKey:NSUD_USERNAME];
         }
@@ -454,19 +506,18 @@
         // load saved notes
         NSString *noteKey =  [NOTEACCOUNT stringByAppendingString:userid];
         if([ud objectForKey:noteKey] == nil){
-            NSString *request_url = [NSString stringWithFormat:@"http://datalet.net/addnote/handle_loadnote.php?secret=%@&&userid=%@&&email=%@", DATALET_SECRET ,userid,email];
+            NSString *request_url = [NSString stringWithFormat:@"http://datalet.net/addnote/handle_loadnote.php?secret=%@&&userid=%@&&email=%@", DATALET_SECRET ,userid,self.useremail];
             [self sendHttpRequest:request_url withSel:@"reload"];
         }
         
-        // loas purchase history
-        NSString *request_url2 = [NSString stringWithFormat:@"http://datalet.net/addnote/handle_hasPurchase.php?secret=%@&&userid=%@&&email=%@", DATALET_SECRET ,userid,email];
+        // load purchase history
+        NSString *request_url2 = [NSString stringWithFormat:@"http://datalet.net/addnote/handle_hasPurchase.php?secret=%@&&userid=%@&&email=%@", DATALET_SECRET ,userid,self.useremail];
         [self sendHttpRequest:request_url2 withSel:@"hasPurchase"];
         
         // view
         [self toggleLayoutForAccount:YES];
         [self.view endEditing:YES];
-        self.navigationItem.title = email;
-        
+        self.navigationItem.title = self.useremail;
     }
     [self alert:stringsplit[0]];
 }
@@ -478,8 +529,8 @@
 -(void) sendHttpRequest:(NSString *)request_url_unsafe withSel:(NSString *)sel{
 
     NSString* request_url = [request_url_unsafe stringByAddingPercentEscapesUsingEncoding:
-                             NSASCIIStringEncoding];
-    NSLog(@"%@",request_url);
+                             NSUTF8StringEncoding];
+    NSLog(@"HTTP: %@",request_url);
     NSURL *url = [NSURL URLWithString:request_url];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -499,7 +550,7 @@
                         [self handlePurchaseResponse:responstr];
                         [self UIShowPurchasedState];
                     }else if([sel isEqual:@"reload"]){
-                        NSLog(@"%@",responstr);
+//                        NSLog(@"%@",responstr);
                         NSError *err;
                         NSDictionary* json =     [NSJSONSerialization JSONObjectWithData: [responstr dataUsingEncoding:NSUTF8StringEncoding]
                                                                                  options: NSJSONReadingMutableContainers
@@ -511,7 +562,7 @@
                         if ([responstr isEqual:@"YES"]) {
                             [self UIShowPurchasedState];
                         }else{
-                            [self UIShowUnPurchasedState];
+                            [self UIShowUnpurchasedState];
                             
                         }
                         NSUserDefaults *ud = [[NSUserDefaults alloc]init];
@@ -519,13 +570,17 @@
                         NSString *purchaseKey =   [USERPURCHASEKEY stringByAppendingString:userid];
                         [ud setObject:responstr forKey:purchaseKey];
                     }
+                    else if([sel isEqual:@"login_facebook"]){
+//                        NSLog(@"%@",responstr);
+                        [self handleLoginResponse:responstr];
+                    }
                     
                 });
                 
             }
         }else if (error)
         {
-            NSLog(@"Errorrrrrrr....%@",error);
+            NSLog(@"Error with url %@ ....%@",request_url_unsafe,error);
         }
         
     }];
